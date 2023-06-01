@@ -11,6 +11,10 @@ function App(): JSX.Element {
       <BrowserRouter>
         <Routes>
           <Route
+            path={AppRoute.Main}
+            element={<CatalogPage />}
+          />
+          <Route
             path={AppRoute.Catalog}
             element={<CatalogPage />}
           />

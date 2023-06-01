@@ -1,10 +1,11 @@
-import { useAppSelector } from '../../hooks/use-app-selector/use-app-selector';
-import { getCameras } from '../../store/reducers/cameras/selectors';
+import { Camera } from '../../types/camera';
 import ProductCard from '../product-card/product-card';
 
-function ProductCardsList(): JSX.Element {
-  const cameras = useAppSelector(getCameras);
+type ProductCardsListProps = {
+  cameras: Camera[];
+}
 
+function ProductCardsList({ cameras }: ProductCardsListProps): JSX.Element {
   return (
     <div className="cards catalog__cards">
       {cameras.map((camera) => <ProductCard camera={camera} key={camera.id} />)}
