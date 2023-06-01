@@ -2,10 +2,10 @@ function Banner(): JSX.Element {
   return (
     <div className="banner">
       <picture>
-        <source type="image/webp" srcSet="img/content/banner-bg.webp, img/content/banner-bg@2x.webp 2x" />
+        <source type="image/webp" srcSet="img/content/promo.webp, img/content/promo@2x.webp 2x" />
         <img
-          src="img/content/banner-bg.jpg"
-          srcSet="img/content/banner-bg@2x.jpg 2x"
+          src="img/content/promo.jpg"
+          srcSet="img/content/promo@2x.jpg 2x"
           width="1280"
           height="280"
           alt="баннер"

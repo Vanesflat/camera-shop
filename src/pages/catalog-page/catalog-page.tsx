@@ -5,8 +5,17 @@ import CatalogAside from '../../components/catalog-aside/catalog-aside';
 import Layout from '../../components/layout/layout';
 import Sort from '../../components/sort/sort';
 import Pagination from '../../components/pagination/pagination';
+import { useEffect } from 'react';
+import { useAppDispatch } from '../../hooks/use-app-dispatch/use-app-dispatch';
+import { fetchCamerasAction } from '../../store/reducers/cameras/api-actions';
 
 function CatalogPage(): JSX.Element {
+  const dispatch = useAppDispatch();
+
+  useEffect(() => {
+    dispatch(fetchCamerasAction());
+  }, [dispatch]);
+
   return (
     <Layout pageTitle='Каталог'>
       <main>
