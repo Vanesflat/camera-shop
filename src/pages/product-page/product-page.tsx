@@ -3,7 +3,7 @@ import Layout from '../../components/layout/layout';
 
 function ProductPage(): JSX.Element {
   return (
-    <Layout>
+    <Layout pageTitle='Продукт'>
       <main>
         <div className="page-content">
           <Breadcrumbs />

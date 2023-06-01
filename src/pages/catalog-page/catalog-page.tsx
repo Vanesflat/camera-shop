@@ -8,7 +8,7 @@ import Pagination from '../../components/pagination/pagination';
 
 function CatalogPage(): JSX.Element {
   return (
-    <Layout>
+    <Layout pageTitle='Каталог'>
       <main>
         <Banner />
         <div className="page-content">
