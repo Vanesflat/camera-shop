@@ -8,13 +8,22 @@ import Pagination from '../../components/pagination/pagination';
 import { useEffect } from 'react';
 import { useAppDispatch } from '../../hooks/use-app-dispatch/use-app-dispatch';
 import { fetchCamerasAction } from '../../store/reducers/cameras/api-actions';
+import { useAppSelector } from '../../hooks/use-app-selector/use-app-selector';
+import { getCamerasStatus } from '../../store/reducers/cameras/selectors';
+import Loader from '../../components/loader/loader';
 
 function CatalogPage(): JSX.Element {
+  const camerasStatus = useAppSelector(getCamerasStatus);
+
   const dispatch = useAppDispatch();
 
   useEffect(() => {
     dispatch(fetchCamerasAction());
   }, [dispatch]);
+
+  if (camerasStatus.isLoading) {
+    return <Loader />;
+  }
 
   return (
     <Layout pageTitle='Каталог'>
