@@ -11,12 +11,17 @@ import { fetchCamerasAction } from '../../store/reducers/cameras/api-actions';
 import { useAppSelector } from '../../hooks/use-app-selector/use-app-selector';
 import { getCameras, getCamerasStatus } from '../../store/reducers/cameras/selectors';
 import Loader from '../../components/loader/loader';
+import { fetchPromoAction } from '../../store/reducers/promo/api-actions';
+import { getPromoStatus } from '../../store/reducers/promo/selectors';
 
 const CAMERAS_PER_PAGE = 9;
 
 function CatalogPage(): JSX.Element {
   const cameras = useAppSelector(getCameras);
   const camerasStatus = useAppSelector(getCamerasStatus);
+
+  const promoStatus = useAppSelector(getPromoStatus);
+
   const [currentPage, setCurrentPage] = useState(1);
   const pageCount = Math.ceil(cameras.length / CAMERAS_PER_PAGE);
   const renderedCameras = cameras.slice((currentPage - 1) * CAMERAS_PER_PAGE, currentPage * CAMERAS_PER_PAGE);
@@ -25,13 +30,14 @@ function CatalogPage(): JSX.Element {
 
   useEffect(() => {
     dispatch(fetchCamerasAction());
+    dispatch(fetchPromoAction());
   }, [dispatch]);
 
   const onPageClick = (page: number) => {
     setCurrentPage(page);
   };
 
-  if (camerasStatus.isLoading) {
+  if (camerasStatus.isLoading || promoStatus.isLoading) {
     return <Loader />;
   }
 

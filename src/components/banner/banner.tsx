@@ -1,11 +1,27 @@
+import { generatePath, Link } from 'react-router-dom';
+import { AppRoute } from '../../const';
+import { useAppSelector } from '../../hooks/use-app-selector/use-app-selector';
+import { getCameras } from '../../store/reducers/cameras/selectors';
+import { getPromo } from '../../store/reducers/promo/selectors';
+import Loader from '../loader/loader';
+
 function Banner(): JSX.Element {
+  const promo = useAppSelector(getPromo);
+  const cameras = useAppSelector(getCameras);
+
+  const promoDescription = cameras.find((camera) => camera.name === promo?.name)?.description;
+
+  if (!promo) {
+    return <Loader />;
+  }
+
   return (
     <div className="banner">
       <picture>
-        <source type="image/webp" srcSet="img/content/promo.webp, img/content/promo@2x.webp 2x" />
+        <source type="image/webp" srcSet={`${promo.previewImgWebp}, ${promo.previewImgWebp2x} 2x`} />
         <img
-          src="img/content/promo.jpg"
-          srcSet="img/content/promo@2x.jpg 2x"
+          src={promo.previewImg}
+          srcSet={promo.previewImg2x}
           width="1280"
           height="280"
           alt="баннер"
@@ -13,11 +29,9 @@ function Banner(): JSX.Element {
       </picture>
       <p className="banner__info">
         <span className="banner__message">Новинка!</span>
-        <span className="title title--h1">Cannonball&nbsp;Pro&nbsp;MX&nbsp;8i
-        </span>
-        <span className="banner__text">Профессиональная камера от&nbsp;известного производителя
-        </span>
-        <a className="btn" href="/#">Подробнее</a>
+        <span className="title title--h1">{promo.name}</span>
+        <span className="banner__text">{promoDescription}</span>
+        <Link className="btn" to={generatePath(AppRoute.Product, {id: String(promo.id)})}>Подробнее</Link>
       </p>
     </div>
   );

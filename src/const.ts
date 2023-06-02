@@ -24,6 +24,7 @@ export enum Status {
 export enum NameSpace {
   Cameras = 'CAMERAS',
   Camera = 'CAMERA',
+  Promo = 'PROMO',
 }
 
 export enum Type {
