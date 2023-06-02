@@ -3,6 +3,7 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { AppRoute } from '../../const';
 import BasketPage from '../../pages/basket-page/basket-page';
 import CatalogPage from '../../pages/catalog-page/catalog-page';
+import NotFoundPage from '../../pages/not-found-page/not-found-page';
 import ProductPage from '../../pages/product-page/product-page';
 
 function App(): JSX.Element {
@@ -25,6 +26,10 @@ function App(): JSX.Element {
           <Route
             path={AppRoute.Product}
             element={<ProductPage />}
+          />
+          <Route
+            path='*'
+            element={<NotFoundPage />}
           />
         </Routes>
       </BrowserRouter>

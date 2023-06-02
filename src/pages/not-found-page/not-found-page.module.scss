@@ -1,0 +1,40 @@
+.box,
+.wrapper {
+  display: grid;
+  place-items: center;
+}
+
+.wrapper {
+  height: 100vh;
+}
+
+.status,
+.text {
+  margin: 0;
+  font-weight: 700;
+  line-height: 1;
+}
+
+.status {
+  font-size: 120px;
+  color: #7575e2;
+}
+
+.text {
+  font-size: 60px;
+}
+
+.link {
+  margin-top: 10px;
+  font-size: 20px;
+  transition: all .3s ease;
+
+  span {
+    color: #7575e2;
+  }
+
+  &:hover {
+    opacity: .7;
+    text-decoration: underline;
+  }
+}
