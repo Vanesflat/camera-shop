@@ -1,4 +1,7 @@
+import { generatePath, Link } from 'react-router-dom';
+import { AppRoute } from '../../const';
 import { Camera } from '../../types/camera';
+import { formatPrice } from '../../utils/app';
 
 type ProductCardProps = {
   camera: Camera;
@@ -40,14 +43,13 @@ function ProductCard({ camera }: ProductCardProps): JSX.Element {
           <p className="rate__count"><span className="visually-hidden">Всего оценок:</span>{camera.reviewCount}</p>
         </div>
         <p className="product-card__title">{camera.name}</p>
-        <p className="product-card__price"><span className="visually-hidden">Цена:</span>{camera.price} ₽
+        <p className="product-card__price"><span className="visually-hidden">Цена:</span>{formatPrice(camera.price)} ₽
         </p>
       </div>
       <div className="product-card__buttons">
         <button className="btn btn--purple product-card__btn" type="button">Купить
         </button>
-        <a className="btn btn--transparent" href="/#">Подробнее
-        </a>
+        <Link className="btn btn--transparent" to={generatePath(AppRoute.Product, { id: String(camera.id) })}>Подробнее</Link>
       </div>
     </div>
   );
