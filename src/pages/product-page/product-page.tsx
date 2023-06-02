@@ -9,12 +9,15 @@ import { useAppDispatch } from '../../hooks/use-app-dispatch/use-app-dispatch';
 import { useAppSelector } from '../../hooks/use-app-selector/use-app-selector';
 import { fetchCameraAction } from '../../store/reducers/camera/api-actions';
 import { getCamera, getCameraStatus } from '../../store/reducers/camera/selectors';
-import { formatPrice } from '../../utils/app';
+import { formatPrice } from '../../utils/common';
 import ProductTabs from '../../components/product-tabs/product-tabs';
+import { fetchReviewsAction } from '../../store/reducers/reviews/api-actions';
+import { getReviewsStatus } from '../../store/reducers/reviews/selectors';
 
 function ProductPage(): JSX.Element {
   const camera = useAppSelector(getCamera);
   const cameraStatus = useAppSelector(getCameraStatus);
+  const reviewsStatus = useAppSelector(getReviewsStatus);
 
   const cameraId = Number(useParams().id);
 
@@ -22,9 +25,10 @@ function ProductPage(): JSX.Element {
 
   useEffect(() => {
     dispatch(fetchCameraAction(cameraId));
+    dispatch(fetchReviewsAction(cameraId));
   }, [dispatch, cameraId]);
 
-  if (!camera || cameraStatus.isLoading) {
+  if (!camera || cameraStatus.isLoading || reviewsStatus.isLoading) {
     return <Loader />;
   }
 

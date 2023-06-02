@@ -25,6 +25,7 @@ export enum NameSpace {
   Cameras = 'CAMERAS',
   Camera = 'CAMERA',
   Promo = 'PROMO',
+  Reviews = 'REVIEWS',
 }
 
 export enum Type {
@@ -44,3 +45,5 @@ export enum Level {
   Amateur = 'Любительский',
   Professional = 'Профессиональный'
 }
+
+export const STARS_COUNT = 5;

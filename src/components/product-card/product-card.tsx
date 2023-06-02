@@ -1,7 +1,7 @@
 import { generatePath, Link } from 'react-router-dom';
 import { AppRoute } from '../../const';
 import { Camera } from '../../types/camera';
-import { formatPrice } from '../../utils/app';
+import { formatPrice } from '../../utils/common';
 
 type ProductCardProps = {
   camera: Camera;
