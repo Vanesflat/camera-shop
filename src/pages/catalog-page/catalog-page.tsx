@@ -5,7 +5,7 @@ import CatalogAside from '../../components/catalog-aside/catalog-aside';
 import Layout from '../../components/layout/layout';
 import Sort from '../../components/sort/sort';
 import Pagination from '../../components/pagination/pagination';
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { useAppDispatch } from '../../hooks/use-app-dispatch/use-app-dispatch';
 import { fetchCamerasAction } from '../../store/reducers/cameras/api-actions';
 import { useAppSelector } from '../../hooks/use-app-selector/use-app-selector';
@@ -13,6 +13,8 @@ import { getCameras, getCamerasStatus } from '../../store/reducers/cameras/selec
 import Loader from '../../components/loader/loader';
 import { fetchPromoAction } from '../../store/reducers/promo/api-actions';
 import { getPromoStatus } from '../../store/reducers/promo/selectors';
+import NotFoundPage from '../not-found-page/not-found-page';
+import { useParams } from 'react-router-dom';
 
 const CAMERAS_PER_PAGE = 9;
 
@@ -22,7 +24,9 @@ function CatalogPage(): JSX.Element {
 
   const promoStatus = useAppSelector(getPromoStatus);
 
-  const [currentPage, setCurrentPage] = useState(1);
+  const param = useParams().page;
+  const currentPage = Number(param?.replace(/[^\d]/g, ''));
+
   const pageCount = Math.ceil(cameras.length / CAMERAS_PER_PAGE);
   const renderedCameras = cameras.slice((currentPage - 1) * CAMERAS_PER_PAGE, currentPage * CAMERAS_PER_PAGE);
 
@@ -33,12 +37,12 @@ function CatalogPage(): JSX.Element {
     dispatch(fetchPromoAction());
   }, [dispatch]);
 
-  const onPageClick = (page: number) => {
-    setCurrentPage(page);
-  };
-
   if (camerasStatus.isLoading || promoStatus.isLoading) {
     return <Loader />;
+  }
+
+  if (currentPage > pageCount || !currentPage) {
+    return <NotFoundPage />;
   }
 
   return (
@@ -55,7 +59,7 @@ function CatalogPage(): JSX.Element {
                 <div className="catalog__content">
                   <Sort />
                   <ProductCardsList cameras={renderedCameras} />
-                  {pageCount > 1 && <Pagination currentPage={currentPage} pageCount={pageCount} onClick={onPageClick} />}
+                  {pageCount > 1 && <Pagination currentPage={currentPage} pageCount={pageCount} />}
                 </div>
               </div>
             </div>
