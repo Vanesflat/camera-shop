@@ -1,12 +1,12 @@
 import { useState } from 'react';
 import { useAppSelector } from '../../hooks/use-app-selector/use-app-selector';
-import { getReviews } from '../../store/reducers/reviews/selectors';
+import { getRenderedReviews } from '../../store/reducers/reviews/selectors';
 import ReviewList from '../review-list/review-list';
 
 const MAX_VISIBLE_REVIEWS_COUNT = 3;
 
 function ReviewBlock(): JSX.Element {
-  const reviews = useAppSelector(getReviews);
+  const reviews = useAppSelector(getRenderedReviews);
 
   const [endSlice, setEndSlice] = useState(MAX_VISIBLE_REVIEWS_COUNT);
   const renderedReviews = reviews.slice(0, endSlice);

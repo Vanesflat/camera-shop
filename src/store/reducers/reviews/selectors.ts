@@ -2,6 +2,7 @@ import { createSelector } from '@reduxjs/toolkit';
 import { NameSpace, Status } from '../../../const';
 import { Review } from '../../../types/review';
 import { State } from '../../../types/store';
+import { getSortedReviews } from '../../../utils/review';
 
 export const getReviews = (state: State): Review[] => state[NameSpace.Reviews].reviews;
 export const getStatus = (state: State): Status => state[NameSpace.Reviews].status;
@@ -11,3 +12,5 @@ export const getReviewsStatus = createSelector([getStatus], (status) => ({
   isSuccess: status === Status.Success,
   isError: status === Status.Error
 }));
+
+export const getRenderedReviews = createSelector([getReviews], (reviews) => getSortedReviews(reviews));
