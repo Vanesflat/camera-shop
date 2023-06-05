@@ -1,6 +1,7 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Camera } from '../../types/camera';
 import cn from 'classnames';
+import { Link, useSearchParams } from 'react-router-dom';
 
 type ProductTabsProps = {
   camera: Camera;
@@ -9,17 +10,34 @@ type ProductTabsProps = {
 function ProductTabs({ camera }: ProductTabsProps): JSX.Element {
   const [openedFeatures, setOpenedFeatures] = useState(false);
   const [openedDescription, setOpenedDescription] = useState(true);
+  const [searchParams, setSearchParams] = useSearchParams();
+  const tab = searchParams.get('tab');
 
   const handleClick = () => {
-    setOpenedDescription(!openedDescription);
-    setOpenedFeatures(!openedFeatures);
+    const isOpen = tab === 'description';
+
+    setOpenedDescription(isOpen);
+    setOpenedFeatures(!isOpen);
   };
+
+  useEffect(() => {
+    if (!tab) {
+      setSearchParams({ tab: 'description' });
+    }
+  });
+
+  useEffect(() => {
+    const isOpen = tab === 'description';
+
+    setOpenedDescription(isOpen);
+    setOpenedFeatures(!isOpen);
+  },[tab]);
 
   return (
     <div className="tabs product__tabs">
       <div className="tabs__controls product__tabs-controls">
-        <button className={cn('tabs__control', openedFeatures && 'is-active')} type="button" onClick={handleClick}>Характеристики</button>
-        <button className={cn('tabs__control', openedDescription && 'is-active')} type="button" onClick={handleClick}>Описание</button>
+        <Link className={cn('tabs__control', openedFeatures && 'is-active')} to={'?tab=features'} onClick={handleClick}>Характеристики</Link>
+        <Link className={cn('tabs__control', openedDescription && 'is-active')} to={'?tab=description'} onClick={handleClick}>Описание</Link>
       </div>
       <div className="tabs__content">
         <div className={cn('tabs__element', openedFeatures && 'is-active')}>
