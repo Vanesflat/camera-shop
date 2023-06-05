@@ -31,7 +31,7 @@ function ProductTabs({ camera }: ProductTabsProps): JSX.Element {
 
     setOpenedDescription(isOpen);
     setOpenedFeatures(!isOpen);
-  },[tab]);
+  }, [tab]);
 
   return (
     <div className="tabs product__tabs">

@@ -6,7 +6,7 @@ function BasketPage(): JSX.Element {
     <Layout pageTitle='Корзина'>
       <main>
         <div className="page-content">
-          <Breadcrumbs />
+          <Breadcrumbs path='корзина' />
           <section className="basket">
             <div className="container">
               <h1 className="title title--h2">Корзина</h1>

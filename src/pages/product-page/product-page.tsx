@@ -36,7 +36,7 @@ function ProductPage(): JSX.Element {
     <Layout pageTitle='Продукт'>
       <main>
         <div className="page-content">
-          <Breadcrumbs />
+          <Breadcrumbs path={camera.name} />
           <div className="page-content__section">
             <section className="product">
               <div className="container">
