@@ -1,22 +1,28 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { NameSpace, Status } from '../../../const';
 import { Review } from '../../../types/review';
-import { fetchReviewsAction } from './api-actions';
+import { fetchReviewsAction, sendReviewAction } from './api-actions';
 
 type ReviewsSlice = {
   reviews: Review[];
   status: Status;
+  postStatus: Status;
 };
 
 const initialState: ReviewsSlice = {
   reviews: [],
-  status: Status.Idle
+  status: Status.Idle,
+  postStatus: Status.Idle
 };
 
 export const reviewsSlice = createSlice({
   name: NameSpace.Reviews,
   initialState,
-  reducers: {},
+  reducers: {
+    changePostStatus: (state) => {
+      state.postStatus = Status.Idle;
+    }
+  },
   extraReducers(builder) {
     builder
       .addCase(fetchReviewsAction.pending, (state) => {
@@ -28,6 +34,18 @@ export const reviewsSlice = createSlice({
       })
       .addCase(fetchReviewsAction.rejected, (state) => {
         state.status = Status.Error;
+      })
+      .addCase(sendReviewAction.pending, (state) => {
+        state.postStatus = Status.Loading;
+      })
+      .addCase(sendReviewAction.fulfilled, (state, action) => {
+        state.reviews.push(action.payload);
+        state.postStatus = Status.Success;
+      })
+      .addCase(sendReviewAction.rejected, (state) => {
+        state.postStatus = Status.Error;
       });
   }
 });
+
+export const { changePostStatus } = reviewsSlice.actions;
