@@ -26,6 +26,7 @@ export enum NameSpace {
   Camera = 'CAMERA',
   Promo = 'PROMO',
   Reviews = 'REVIEWS',
+  SimilarCameras = 'SIMILAR-CAMERAS',
 }
 
 export enum Type {

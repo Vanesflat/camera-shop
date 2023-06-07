@@ -13,11 +13,14 @@ import { formatPrice } from '../../utils/common';
 import ProductTabs from '../../components/product-tabs/product-tabs';
 import { fetchReviewsAction } from '../../store/reducers/reviews/api-actions';
 import { getReviewsStatus } from '../../store/reducers/reviews/selectors';
+import { fetchSimilarCamerasAction } from '../../store/reducers/similar-products/api-actions';
+import { getSimilarCamerasStatus } from '../../store/reducers/similar-products/selectors';
 
 function ProductPage(): JSX.Element {
   const camera = useAppSelector(getCamera);
   const cameraStatus = useAppSelector(getCameraStatus);
   const reviewsStatus = useAppSelector(getReviewsStatus);
+  const similarCamerasStatus = useAppSelector(getSimilarCamerasStatus);
 
   const cameraId = Number(useParams().id);
 
@@ -26,9 +29,10 @@ function ProductPage(): JSX.Element {
   useEffect(() => {
     dispatch(fetchCameraAction(cameraId));
     dispatch(fetchReviewsAction(cameraId));
+    dispatch(fetchSimilarCamerasAction(cameraId));
   }, [dispatch, cameraId]);
 
-  if (!camera || cameraStatus.isLoading || reviewsStatus.isLoading) {
+  if (!camera || cameraStatus.isLoading || reviewsStatus.isLoading || similarCamerasStatus.isLoading) {
     return <Loader />;
   }
 

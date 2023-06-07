@@ -1,15 +1,17 @@
+import { CSSProperties } from 'react';
 import { generatePath, Link } from 'react-router-dom';
 import { AppRoute } from '../../const';
 import { Camera } from '../../types/camera';
 import { formatPrice } from '../../utils/common';
 
 type ProductCardProps = {
+  style?: CSSProperties;
   camera: Camera;
 }
 
-function ProductCard({ camera }: ProductCardProps): JSX.Element {
+function ProductCard({ style, camera }: ProductCardProps): JSX.Element {
   return (
-    <div className="product-card">
+    <div className="product-card is-active" style={style}>
       <div className="product-card__img">
         <picture>
           <source type="image/webp" srcSet={`${camera.previewImgWebp}, ${camera.previewImgWebp2x} 2x`} />
