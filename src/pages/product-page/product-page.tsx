@@ -32,6 +32,13 @@ function ProductPage(): JSX.Element {
     dispatch(fetchSimilarCamerasAction(cameraId));
   }, [dispatch, cameraId]);
 
+  const handleUpClick = () => {
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth'
+    });
+  };
+
   if (!camera || cameraStatus.isLoading || reviewsStatus.isLoading || similarCamerasStatus.isLoading) {
     return <Loader />;
   }
@@ -87,6 +94,11 @@ function ProductPage(): JSX.Element {
           <ReviewBlock />
         </div>
       </main>
+      <button className="up-btn" onClick={handleUpClick}>
+        <svg width="12" height="18" aria-hidden="true">
+          <use xlinkHref="#icon-arrow2"></use>
+        </svg>
+      </button>
     </Layout>
   );
 }
