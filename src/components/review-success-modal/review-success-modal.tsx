@@ -9,15 +9,15 @@ function ReviewSuccessModal(): JSX.Element {
   const sendReviewStatus = useAppSelector(getSendReviewStatus);
   const dispatch = useAppDispatch();
 
-  const onClick = useCallback(() => {
+  const handleClick = useCallback(() => {
     dispatch(changePostStatus());
   }, [dispatch]);
 
   const onEscapeKeydown = useCallback((evt: KeyboardEvent) => {
     if (evt.key === 'Escape') {
-      onClick();
+      handleClick();
     }
-  }, [onClick]);
+  }, [handleClick]);
 
   useEffect(() => {
     if (sendReviewStatus.isSuccess) {
@@ -35,7 +35,7 @@ function ReviewSuccessModal(): JSX.Element {
   return (
     <div className={cn('modal modal--narrow', sendReviewStatus.isSuccess && 'is-active')}>
       <div className="modal__wrapper">
-        <div className="modal__overlay" onClick={onClick}></div>
+        <div className="modal__overlay" onClick={handleClick}></div>
         <div className="modal__content">
           <p className="title title--h4">Спасибо за отзыв</p>
           <svg className="modal__icon" width="80" height="78" aria-hidden="true">
@@ -45,7 +45,7 @@ function ReviewSuccessModal(): JSX.Element {
             <button
               className="btn btn--purple modal__btn modal__btn--fit-width"
               type="button"
-              onClick={onClick}
+              onClick={handleClick}
             >
               Вернуться к покупкам
             </button>
@@ -54,7 +54,7 @@ function ReviewSuccessModal(): JSX.Element {
             className="cross-btn"
             type="button"
             aria-label="Закрыть попап"
-            onClick={onClick}
+            onClick={handleClick}
           >
             <svg width="10" height="10" aria-hidden="true">
               <use xlinkHref="#icon-close"></use>
