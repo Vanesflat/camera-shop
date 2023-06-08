@@ -3,7 +3,7 @@ import { NameSpace, Status } from '../../../const';
 import { Camera } from '../../../types/camera';
 import { fetchCameraAction } from './api-actions';
 
-type CameraSlice = {
+export type CameraSlice = {
   camera: Camera | null;
   status: Status;
 };

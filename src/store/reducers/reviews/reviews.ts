@@ -3,7 +3,7 @@ import { NameSpace, Status } from '../../../const';
 import { Review } from '../../../types/review';
 import { fetchReviewsAction, sendReviewAction } from './api-actions';
 
-type ReviewsSlice = {
+export type ReviewsSlice = {
   reviews: Review[];
   status: Status;
   postStatus: Status;

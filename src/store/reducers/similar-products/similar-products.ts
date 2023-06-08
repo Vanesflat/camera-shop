@@ -3,17 +3,17 @@ import { NameSpace, Status } from '../../../const';
 import { Camera } from '../../../types/camera';
 import { fetchSimilarCamerasAction } from './api-actions';
 
-type CamerasSlice = {
+export type SimilarCamerasSlice = {
   similarCameras: Camera[];
   status: Status;
 };
 
-const initialState: CamerasSlice = {
+const initialState: SimilarCamerasSlice = {
   similarCameras: [],
   status: Status.Idle
 };
 
-export const similaraCamerasSlice = createSlice({
+export const similarCamerasSlice = createSlice({
   name: NameSpace.SimilarCameras,
   initialState,
   reducers: {},
