@@ -1,6 +1,8 @@
 import ReactDOM from 'react-dom/client';
 import { Provider } from 'react-redux';
+import browserHistory from './browser-history';
 import App from './components/app/app';
+import HistoryRouter from './components/history-router/history-router';
 import { store } from './store/store';
 
 const root = ReactDOM.createRoot(
@@ -9,6 +11,8 @@ const root = ReactDOM.createRoot(
 
 root.render(
   <Provider store={store}>
-    <App />
+    <HistoryRouter history={browserHistory}>
+      <App />
+    </HistoryRouter>
   </Provider>
 );
