@@ -1,5 +1,14 @@
 {
   "name": "project",
+  "jest": {
+    "watchPathIgnorePatterns": [
+      "node_modules",
+      ".jest-test-results.json"
+    ],
+    "transformIgnorePatterns": [
+      "/node_modules/(?!(swiper|ssr-window|dom7))"
+    ]
+  },
   "version": "0.1.0",
   "private": true,
   "dependencies": {
