@@ -9,7 +9,7 @@ type PaginationProps = {
 
 function Pagination({ currentPage, pageCount }: PaginationProps): JSX.Element {
   return (
-    <div className="pagination">
+    <div className="pagination" data-testid="pagination">
       <ul className="pagination__list">
         {currentPage !== 1 &&
           <li className="pagination__item">

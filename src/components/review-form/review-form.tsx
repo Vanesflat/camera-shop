@@ -99,7 +99,7 @@ function ReviewForm({ isOpen, onClose }: ReviewFormProps): JSX.Element {
   };
 
   return (
-    <div className="form-review">
+    <div className="form-review" data-testid="review-form">
       <form
         method="post"
         // eslint-disable-next-line @typescript-eslint/no-misused-promises

@@ -11,7 +11,7 @@ type ProductCardProps = {
 
 function ProductCard({ style, camera }: ProductCardProps): JSX.Element {
   return (
-    <div className="product-card is-active" style={style}>
+    <div className="product-card is-active" style={style} data-testid="product-card">
       <div className="product-card__img">
         <picture>
           <source type="image/webp" srcSet={`${camera.previewImgWebp}, ${camera.previewImgWebp2x} 2x`} />

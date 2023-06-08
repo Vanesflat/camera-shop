@@ -1,6 +1,6 @@
 function Header(): JSX.Element {
   return (
-    <header className="header" id="header">
+    <header className="header" id="header" data-testid="header">
       <div className="container">
         <a className="header__logo" href="index.html" aria-label="Переход на главную">
           <svg width="100" height="36" aria-hidden="true">

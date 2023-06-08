@@ -1,6 +1,6 @@
 function Path(): JSX.Element {
   return (
-    <div className="visually-hidden">
+    <div className="visually-hidden" data-testid="path">
       <svg xmlns="http://www.w3.org/2000/svg" xmlnsXlink="http://www.w3.org/1999/xlink">
         <symbol id="icon-add-basket" viewBox="0 0 24 16">
           <path fillRule="evenodd" clipRule="evenodd"

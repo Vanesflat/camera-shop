@@ -9,7 +9,7 @@ function ReviewItem({ review }: ReviewItemProps): JSX.Element {
   const stars: boolean[] = getStarsArray(review.rating);
 
   return (
-    <li className="review-card">
+    <li className="review-card" data-testid="review-item">
       <div className="review-card__head">
         <p className="title title--h4">{review.userName}</p>
         <time className="review-card__data" dateTime={convertDateForDateTime(review.createAt)}>{convertDate(review.createAt)}</time>
