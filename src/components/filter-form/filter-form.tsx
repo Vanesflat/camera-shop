@@ -5,7 +5,7 @@ import FilterByType from '../filter-by-type/filter-by-type';
 
 function FilterForm(): JSX.Element {
   return (
-    <form action="#">
+    <form action="#" data-testid="filter-form">
       <h2 className="visually-hidden">Фильтр</h2>
       <FilterByPrice />
       <FilterByCategory />

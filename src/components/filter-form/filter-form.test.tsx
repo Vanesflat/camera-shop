@@ -19,6 +19,6 @@ describe('Component: FilterForm', () => {
       </Provider>
     );
 
-    expect(screen.getByText(/Фильтр/i)).toBeInTheDocument();
+    expect(screen.getByTestId('filter-form')).toBeInTheDocument();
   });
 });
