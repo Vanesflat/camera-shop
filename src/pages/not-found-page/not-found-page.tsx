@@ -6,7 +6,7 @@ import classes from './not-found-page.module.scss';
 function NotFoundPage(): JSX.Element {
   return (
     <Layout pageTitle="404. Ничего не найдено">
-      <main>
+      <main data-testid="not-found-page">
         <div className={classes.wrapper}>
           <div className={classes.box}>
             <p className={classes.status}>404</p>

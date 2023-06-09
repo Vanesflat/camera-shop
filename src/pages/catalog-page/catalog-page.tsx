@@ -47,7 +47,7 @@ function CatalogPage(): JSX.Element {
 
   return (
     <Layout pageTitle='Каталог'>
-      <main>
+      <main data-testid="catalog-page">
         <Banner />
         <div className="page-content">
           <Breadcrumbs />
