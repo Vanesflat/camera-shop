@@ -1,5 +1,6 @@
 import cn from 'classnames';
-import { Link, generatePath } from 'react-router-dom';
+import { useEffect } from 'react';
+import { Link, generatePath, useNavigate } from 'react-router-dom';
 import { AppRoute } from '../../const';
 
 type PaginationProps = {
@@ -8,6 +9,14 @@ type PaginationProps = {
 }
 
 function Pagination({ currentPage, pageCount }: PaginationProps): JSX.Element {
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (currentPage > pageCount) {
+      navigate(generatePath(AppRoute.Catalog, { page: `page_${pageCount}` }));
+    }
+  });
+
   return (
     <div className="pagination" data-testid="pagination">
       <ul className="pagination__list">

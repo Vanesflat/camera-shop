@@ -13,7 +13,6 @@ import { getCameras, getCamerasStatus } from '../../store/reducers/cameras/selec
 import Loader from '../../components/loader/loader';
 import { fetchPromoAction } from '../../store/reducers/promo/api-actions';
 import { getPromoStatus } from '../../store/reducers/promo/selectors';
-import NotFoundPage from '../not-found-page/not-found-page';
 import { useParams } from 'react-router-dom';
 
 const CAMERAS_PER_PAGE = 9;
@@ -25,9 +24,14 @@ function CatalogPage(): JSX.Element {
   const promoStatus = useAppSelector(getPromoStatus);
 
   const param = useParams().page;
-  const currentPage = Number(param?.replace(/[^\d]/g, ''));
+  let currentPage = Number(param?.replace(/[^\d]/g, ''));
 
+  if (!currentPage) {
+    currentPage = 1;
+  }
   const pageCount = Math.ceil(cameras.length / CAMERAS_PER_PAGE);
+
+
   const renderedCameras = cameras.slice((currentPage - 1) * CAMERAS_PER_PAGE, currentPage * CAMERAS_PER_PAGE);
 
   const dispatch = useAppDispatch();
@@ -41,12 +45,8 @@ function CatalogPage(): JSX.Element {
     return <Loader />;
   }
 
-  if (currentPage > pageCount || !currentPage) {
-    return <NotFoundPage />;
-  }
-
   return (
-    <Layout pageTitle='Каталог'>
+    <Layout pageTitle="Каталог">
       <main data-testid="catalog-page">
         <Banner />
         <div className="page-content">
