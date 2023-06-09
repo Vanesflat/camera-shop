@@ -44,7 +44,7 @@ function ProductPage(): JSX.Element {
   }
 
   return (
-    <Layout pageTitle='Продукт'>
+    <Layout pageTitle="Продукт">
       <main>
         <div className="page-content" data-testid="product-page">
           <Breadcrumbs path={camera.name} />

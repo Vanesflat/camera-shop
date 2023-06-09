@@ -3,7 +3,7 @@ import Layout from '../../components/layout/layout';
 
 function BasketPage(): JSX.Element {
   return (
-    <Layout pageTitle='Корзина'>
+    <Layout pageTitle="Корзина">
       <main data-testid="basket-page">
         <div className="page-content">
           <Breadcrumbs path='корзина' />
