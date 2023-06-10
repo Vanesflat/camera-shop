@@ -19,7 +19,12 @@ function Breadcrumbs({ path }: BreadcrumbsProps): JSX.Element {
             </Link>
           </li>
           <li className="breadcrumbs__item">
-            <Link className={cn('breadcrumbs__link', !path && 'breadcrumbs__link--active')} to={AppRoute.Main}>Каталог
+            <Link
+              className={cn('breadcrumbs__link', !path && 'breadcrumbs__link--active')}
+              to={AppRoute.Main}
+              data-testid="breadcrumbs-link"
+            >
+              Каталог
               {path &&
                 <svg width="5" height="8" aria-hidden="true">
                   <use xlinkHref="#icon-arrow-mini"></use>

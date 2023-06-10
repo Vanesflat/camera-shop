@@ -5,14 +5,17 @@ import { Provider } from 'react-redux';
 import HistoryRouter from '../history-router/history-router';
 import ProductCard from './product-card';
 import { makeFakeCamera } from '../../utils/mocks';
+import { generatePath, Route, Routes } from 'react-router-dom';
+import { AppRoute } from '../../const';
+import userEvent from '@testing-library/user-event';
 
 const mockStore = configureMockStore();
 const camera = makeFakeCamera();
+const history = createMemoryHistory();
+const store = mockStore({});
 
 describe('Component: ProductCard', () => {
   it('should render correctly', () => {
-    const history = createMemoryHistory();
-    const store = mockStore({});
 
     render(
       <Provider store={store}>
@@ -23,5 +26,32 @@ describe('Component: ProductCard', () => {
     );
 
     expect(screen.getByTestId('product-card')).toBeInTheDocument();
+  });
+
+  it('should redirect to product page when user clicked to link', async () => {
+    history.push('/fake');
+
+    render(
+      <Provider store={store}>
+        <HistoryRouter history={history}>
+          <Routes>
+            <Route
+              path={generatePath(AppRoute.Product, { id: String(camera.id) })}
+              element={<h1>This is product page</h1>}
+            />
+            <Route
+              path='*'
+              element={<ProductCard camera={camera} />}
+            />
+          </Routes>
+        </HistoryRouter>
+      </Provider>
+    );
+
+    expect(screen.queryByText(/This is product page/i)).not.toBeInTheDocument();
+
+    await userEvent.click(screen.getByRole('link'));
+
+    expect(screen.getByText(/This is product page/i)).toBeInTheDocument();
   });
 });
