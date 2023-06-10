@@ -19,6 +19,7 @@ function SimilarProducts(): JSX.Element {
               modules={[Navigation]}
               spaceBetween={32}
               slidesPerView={3}
+              slidesPerGroup={3}
               navigation={
                 {
                   nextEl: '.slider-controls--next',
