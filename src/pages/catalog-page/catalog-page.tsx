@@ -31,7 +31,6 @@ function CatalogPage(): JSX.Element {
   }
   const pageCount = Math.ceil(cameras.length / CAMERAS_PER_PAGE);
 
-
   const renderedCameras = cameras.slice((currentPage - 1) * CAMERAS_PER_PAGE, currentPage * CAMERAS_PER_PAGE);
 
   const dispatch = useAppDispatch();

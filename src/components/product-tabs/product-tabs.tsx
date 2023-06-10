@@ -21,16 +21,32 @@ function ProductTabs({ camera }: ProductTabsProps): JSX.Element {
   };
 
   useEffect(() => {
-    if (!tab) {
-      setSearchParams({ tab: 'description' });
+    let isMounted = true;
+
+    if (isMounted) {
+      if (!tab) {
+        setSearchParams({ tab: 'description' });
+      }
     }
+
+    return () => {
+      isMounted = false;
+    };
   });
 
   useEffect(() => {
-    const isOpen = tab === 'description';
+    let isMounted = true;
 
-    setOpenedDescription(isOpen);
-    setOpenedFeatures(!isOpen);
+    if (isMounted) {
+      const isOpen = tab === 'description';
+
+      setOpenedDescription(isOpen);
+      setOpenedFeatures(!isOpen);
+    }
+
+    return () => {
+      isMounted = false;
+    };
   }, [tab]);
 
   return (

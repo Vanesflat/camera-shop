@@ -1,3 +1,5 @@
+import { Link } from 'react-router-dom';
+import { AppRoute } from '../../const';
 import Logo from '../logo/logo';
 
 function Header(): JSX.Element {
@@ -8,7 +10,7 @@ function Header(): JSX.Element {
         <nav className="main-nav header__main-nav">
           <ul className="main-nav__list">
             <li className="main-nav__item">
-              <a className="main-nav__link" href="/#">Каталог</a>
+              <Link className="main-nav__link" to={AppRoute.Main}>Каталог</Link>
             </li>
             <li className="main-nav__item">
               <a className="main-nav__link" href="/#">Гарантии</a>

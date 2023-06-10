@@ -1,3 +1,5 @@
+import { Link } from 'react-router-dom';
+import { AppRoute } from '../../const';
 import Logo from '../logo/logo';
 
 function Footer(): JSX.Element {
@@ -36,8 +38,7 @@ function Footer(): JSX.Element {
             <p className="footer__title">Навигация</p>
             <ul className="footer__list">
               <li className="footer__item">
-                <a className="link" href="/#">Каталог
-                </a>
+                <Link className="main-nav__link" to={AppRoute.Main}>Каталог</Link>
               </li>
               <li className="footer__item">
                 <a className="link" href="/#">Гарантии
