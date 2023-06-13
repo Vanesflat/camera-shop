@@ -10,7 +10,7 @@ type ProductTabsProps = {
 function ProductTabs({ camera }: ProductTabsProps): JSX.Element {
   const [openedFeatures, setOpenedFeatures] = useState(false);
   const [openedDescription, setOpenedDescription] = useState(true);
-  const [searchParams, setSearchParams] = useSearchParams();
+  const [searchParams] = useSearchParams();
   const tab = searchParams.get('tab');
 
   const handleClick = () => {
@@ -19,20 +19,6 @@ function ProductTabs({ camera }: ProductTabsProps): JSX.Element {
     setOpenedDescription(isOpen);
     setOpenedFeatures(!isOpen);
   };
-
-  useEffect(() => {
-    let isMounted = true;
-
-    if (isMounted) {
-      if (!tab) {
-        setSearchParams({ tab: 'description' });
-      }
-    }
-
-    return () => {
-      isMounted = false;
-    };
-  });
 
   useEffect(() => {
     let isMounted = true;

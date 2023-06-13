@@ -1,6 +1,6 @@
 import { CSSProperties } from 'react';
-import { generatePath, Link } from 'react-router-dom';
-import { AppRoute } from '../../const';
+import { Link } from 'react-router-dom';
+import { AppRoute, DEFAULT_PRODUCT_TAB } from '../../const';
 import { Camera } from '../../types/camera';
 import { formatPrice } from '../../utils/common';
 
@@ -51,7 +51,7 @@ function ProductCard({ style, camera }: ProductCardProps): JSX.Element {
       <div className="product-card__buttons">
         <button className="btn btn--purple product-card__btn" type="button">Купить
         </button>
-        <Link className="btn btn--transparent" to={generatePath(AppRoute.Product, { id: String(camera.id) })}>Подробнее</Link>
+        <Link className="btn btn--transparent" to={`${AppRoute.Product}/${String(camera.id)}?tab=${DEFAULT_PRODUCT_TAB}`}>Подробнее</Link>
       </div>
     </div>
   );

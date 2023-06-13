@@ -2,7 +2,7 @@ export enum AppRoute {
   Main = '/',
   Catalog = '/catalog/:page',
   Basket = '/basket',
-  Product = '/product/:id'
+  Product = '/product'
 }
 
 export enum APIRoute {
@@ -48,3 +48,4 @@ export enum Level {
 }
 
 export const STARS_COUNT = 5;
+export const DEFAULT_PRODUCT_TAB = 'description';

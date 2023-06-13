@@ -23,7 +23,7 @@ function App(): JSX.Element {
           element={<BasketPage />}
         />
         <Route
-          path={AppRoute.Product}
+          path={`${AppRoute.Product}/:id`}
           element={<ProductPage />}
         />
         <Route
