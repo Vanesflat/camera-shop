@@ -1,5 +1,5 @@
-import { generatePath, Link } from 'react-router-dom';
-import { AppRoute } from '../../const';
+import { Link } from 'react-router-dom';
+import { AppRoute, DEFAULT_PRODUCT_TAB } from '../../const';
 import { useAppSelector } from '../../hooks/use-app-selector/use-app-selector';
 import { getCameras } from '../../store/reducers/cameras/selectors';
 import { getPromo } from '../../store/reducers/promo/selectors';
@@ -31,7 +31,7 @@ function Banner(): JSX.Element {
         <span className="banner__message">Новинка!</span>
         <span className="title title--h1">{promo.name}</span>
         <span className="banner__text">{promoDescription}</span>
-        <Link className="btn" to={generatePath(AppRoute.Product, {id: String(promo.id)})}>Подробнее</Link>
+        <Link className="btn" to={`${AppRoute.Product}/${String(promo.id)}?tab=${DEFAULT_PRODUCT_TAB}`}>Подробнее</Link>
       </p>
     </div>
   );
