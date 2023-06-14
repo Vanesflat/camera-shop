@@ -1,3 +1,4 @@
+import { FocusTrap } from '@mui/base';
 import cn from 'classnames';
 import { useCallback, useEffect, useRef } from 'react';
 
@@ -29,24 +30,30 @@ function Modal({ isOpen, onCloseClick, children }: ModalProps): JSX.Element {
   }, [isOpen, onEscapeKeydown]);
 
   return (
-    <div className={cn('modal', isOpen && 'is-active')} ref={modalRef}>
-      <div className="modal__wrapper">
-        <div className="modal__overlay" onClick={onCloseClick}></div>
-        <div className="modal__content">
-          {children}
-          <button
-            className="cross-btn"
-            type="button"
-            aria-label="Закрыть попап"
-            onClick={onCloseClick}
-          >
-            <svg width="10" height="10" aria-hidden="true">
-              <use xlinkHref="#icon-close"></use>
-            </svg>
-          </button>
+    <FocusTrap open>
+      <div
+        className={cn('modal', isOpen && 'is-active')}
+        ref={modalRef}
+        tabIndex={-1}
+      >
+        <div className="modal__wrapper">
+          <div className="modal__overlay" onClick={onCloseClick}></div>
+          <div className="modal__content">
+            {children}
+            <button
+              className="cross-btn"
+              type="button"
+              aria-label="Закрыть попап"
+              onClick={onCloseClick}
+            >
+              <svg width="10" height="10" aria-hidden="true">
+                <use xlinkHref="#icon-close"></use>
+              </svg>
+            </button>
+          </div>
         </div>
       </div>
-    </div>
+    </FocusTrap>
   );
 }
 
