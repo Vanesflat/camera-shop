@@ -1,8 +1,11 @@
-import { CSSProperties } from 'react';
+import { CSSProperties, useCallback, useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { AppRoute, DEFAULT_PRODUCT_TAB } from '../../const';
+import { APIRoute, AppRoute, DEFAULT_PRODUCT_TAB } from '../../const';
+import { api } from '../../store/store';
 import { Camera } from '../../types/camera';
+import { Review } from '../../types/review';
 import { formatPrice } from '../../utils/common';
+import Rating from '../rating/rating';
 
 type ProductCardProps = {
   style?: CSSProperties;
@@ -10,6 +13,18 @@ type ProductCardProps = {
 }
 
 function ProductCard({ style, camera }: ProductCardProps): JSX.Element {
+  const [reviews, setReviews] = useState<Review[]>([]);
+
+  const fetchReviews = useCallback(async () => {
+    const { data } = await api.get<Review[]>(`${APIRoute.Cameras}/${camera.id}${APIRoute.Reviews}`);
+
+    setReviews(data);
+  }, [camera.id]);
+
+  useEffect(() => {
+    fetchReviews();
+  }, [fetchReviews]);
+
   return (
     <div className="product-card is-active" style={style} data-testid="product-card">
       <div className="product-card__img">
@@ -25,25 +40,7 @@ function ProductCard({ style, camera }: ProductCardProps): JSX.Element {
         </picture>
       </div>
       <div className="product-card__info">
-        <div className="rate product-card__rate">
-          <svg width="17" height="16" aria-hidden="true">
-            <use xlinkHref="#icon-full-star"></use>
-          </svg>
-          <svg width="17" height="16" aria-hidden="true">
-            <use xlinkHref="#icon-full-star"></use>
-          </svg>
-          <svg width="17" height="16" aria-hidden="true">
-            <use xlinkHref="#icon-full-star"></use>
-          </svg>
-          <svg width="17" height="16" aria-hidden="true">
-            <use xlinkHref="#icon-star"></use>
-          </svg>
-          <svg width="17" height="16" aria-hidden="true">
-            <use xlinkHref="#icon-star"></use>
-          </svg>
-          <p className="visually-hidden">Рейтинг: 3</p>
-          <p className="rate__count"><span className="visually-hidden">Всего оценок:</span>{camera.reviewCount}</p>
-        </div>
+        <Rating reviews={reviews} />
         <p className="product-card__title">{camera.name}</p>
         <p className="product-card__price"><span className="visually-hidden">Цена:</span>{formatPrice(camera.price)} ₽
         </p>

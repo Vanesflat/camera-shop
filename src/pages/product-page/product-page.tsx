@@ -12,13 +12,15 @@ import { getCamera, getCameraStatus } from '../../store/reducers/camera/selector
 import { formatPrice } from '../../utils/common';
 import ProductTabs from '../../components/product-tabs/product-tabs';
 import { fetchReviewsAction } from '../../store/reducers/reviews/api-actions';
-import { getReviewsStatus } from '../../store/reducers/reviews/selectors';
+import { getReviews, getReviewsStatus } from '../../store/reducers/reviews/selectors';
 import { fetchSimilarCamerasAction } from '../../store/reducers/similar-products/api-actions';
 import { getSimilarCamerasStatus } from '../../store/reducers/similar-products/selectors';
+import Rating from '../../components/rating/rating';
 
 function ProductPage(): JSX.Element {
   const camera = useAppSelector(getCamera);
   const cameraStatus = useAppSelector(getCameraStatus);
+  const reviews = useAppSelector(getReviews);
   const reviewsStatus = useAppSelector(getReviewsStatus);
   const similarCamerasStatus = useAppSelector(getSimilarCamerasStatus);
 
@@ -59,25 +61,7 @@ function ProductPage(): JSX.Element {
                 </div>
                 <div className="product__content">
                   <h1 className="title title--h3">{camera.name}</h1>
-                  <div className="rate product__rate">
-                    <svg width="17" height="16" aria-hidden="true">
-                      <use xlinkHref="#icon-full-star"></use>
-                    </svg>
-                    <svg width="17" height="16" aria-hidden="true">
-                      <use xlinkHref="#icon-full-star"></use>
-                    </svg>
-                    <svg width="17" height="16" aria-hidden="true">
-                      <use xlinkHref="#icon-full-star"></use>
-                    </svg>
-                    <svg width="17" height="16" aria-hidden="true">
-                      <use xlinkHref="#icon-full-star"></use>
-                    </svg>
-                    <svg width="17" height="16" aria-hidden="true">
-                      <use xlinkHref="#icon-star"></use>
-                    </svg>
-                    <p className="visually-hidden">Рейтинг: 4</p>
-                    <p className="rate__count"><span className="visually-hidden">Всего оценок:</span>{camera.reviewCount}</p>
-                  </div>
+                  <Rating reviews={reviews} />
                   <p className="product__price"><span className="visually-hidden">Цена:</span>{formatPrice(camera.price)} ₽</p>
                   <button className="btn btn--purple" type="button">
                     <svg width="24" height="16" aria-hidden="true">

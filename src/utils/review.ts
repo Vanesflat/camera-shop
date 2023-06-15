@@ -28,3 +28,9 @@ export const getStarsArray = (rating: number): boolean[] => {
 };
 
 export const getSortedReviews = (reviews: Review[]): Review[] => [...reviews].sort((a, b) => Date.parse(b.createAt) - Date.parse(a.createAt));
+
+export const getAverageRate = (reviews: Review[]): number => {
+  const sumRate = reviews.reduce((acc, review) => acc + review.rating, 0);
+
+  return Math.ceil(sumRate / reviews.length);
+};
