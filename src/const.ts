@@ -22,6 +22,7 @@ export enum Status {
 }
 
 export enum NameSpace {
+  App = 'APP',
   Cameras = 'CAMERAS',
   Camera = 'CAMERA',
   Promo = 'PROMO',
@@ -45,6 +46,16 @@ export enum Level {
   Null = 'Нулевой',
   Amateur = 'Любительский',
   Professional = 'Профессиональный'
+}
+
+export enum SortType {
+  SortPrice = 'по цене',
+  SortPopular = 'по популярности'
+}
+
+export enum SortOrder {
+  Up = 'По возрастанию',
+  Down = 'По убыванию'
 }
 
 export const STARS_COUNT = 5;
