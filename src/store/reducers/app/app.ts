@@ -17,6 +17,10 @@ export const appSlice = createSlice({
   reducers: {
     changeSortType: (state, action: PayloadAction<SortType>) => {
       state.sortType = action.payload;
+
+      if (!state.sortOrder) {
+        state.sortOrder = SortOrder.Up;
+      }
     },
     changeSortOrder: (state, action: PayloadAction<SortOrder>) => {
       state.sortOrder = action.payload;

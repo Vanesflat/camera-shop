@@ -1,32 +1,51 @@
-import { SortType } from '../../const';
+import { generatePath, Link, useNavigate } from 'react-router-dom';
+import { URLSearchParams } from 'url';
+import { AppRoute, SortType, sortTypeQueryValue } from '../../const';
 import { useAppDispatch } from '../../hooks/use-app-dispatch/use-app-dispatch';
 import { useAppSelector } from '../../hooks/use-app-selector/use-app-selector';
 import { changeSortType } from '../../store/reducers/app/app';
 import { getCurrentSortType } from '../../store/reducers/app/selectors';
 
-function SortByType(): JSX.Element {
+type SortByTypeProps = {
+  currentPage: number;
+  searchParams: URLSearchParams;
+};
+
+function SortByType({ currentPage, searchParams }: SortByTypeProps): JSX.Element {
   const currentSortType = useAppSelector(getCurrentSortType);
   const dispatch = useAppDispatch();
+
+  const navigate = useNavigate();
+
+  const typeParam = searchParams.get('sortBy');
+
+  const handleClick = (text: SortType) => {
+    dispatch(changeSortType(text));
+
+    navigate({
+      pathname: `${generatePath(AppRoute.Catalog, { page: `page_${currentPage}` })}`,
+      search: searchParams.toString()
+    });
+  };
 
   return (
     <div className="catalog-sort__type">
       {Object.entries(SortType).map(([type, text]) => (
-        <div
+        <Link
           className="catalog-sort__btn-text"
           key={type}
-          onClick={() => {
-            dispatch(changeSortType(text as SortType));
-          }}
+          onClick={() => handleClick(text)}
+          to={`?sortBy=${sortTypeQueryValue[text]}`}
         >
           <input
             type="radio"
             id={type}
             name="sort"
-            checked={text === currentSortType}
+            checked={text === currentSortType || typeParam === sortTypeQueryValue[text]}
             readOnly
           />
           <label htmlFor={type}>{text}</label>
-        </div>
+        </Link>
       ))}
     </div>
   );

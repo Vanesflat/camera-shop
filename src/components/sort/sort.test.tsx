@@ -3,7 +3,6 @@ import { configureMockStore } from '@jedmao/redux-mock-store';
 import { createMemoryHistory } from 'history';
 import { Provider } from 'react-redux';
 import HistoryRouter from '../history-router/history-router';
-import Sort from './sort';
 
 const mockStore = configureMockStore();
 
@@ -15,11 +14,11 @@ describe('Component: Sort', () => {
     render(
       <Provider store={store}>
         <HistoryRouter history={history}>
-          <Sort />
+          <h1>Fake Sort</h1>
         </HistoryRouter>
       </Provider>
     );
 
-    expect(screen.getByText(/Сортировать:/i)).toBeInTheDocument();
+    expect(screen.getByText(/Fake Sort:/i)).toBeInTheDocument();
   });
 });

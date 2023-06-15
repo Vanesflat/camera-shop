@@ -58,5 +58,15 @@ export enum SortOrder {
   Down = 'По убыванию'
 }
 
+export const sortOrderQueryValue = {
+  [SortOrder.Up]: 'asc',
+  [SortOrder.Down]: 'desc'
+};
+
+export const sortTypeQueryValue = {
+  [SortType.SortPopular]: 'popular',
+  [SortType.SortPrice]: 'price'
+};
+
 export const STARS_COUNT = 5;
 export const DEFAULT_PRODUCT_TAB = 'description';
