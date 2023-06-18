@@ -1,6 +1,8 @@
 import { FocusTrap } from '@mui/base';
 import cn from 'classnames';
 import React, { useEffect, useMemo, useRef, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { AppRoute, DEFAULT_PRODUCT_TAB } from '../../const';
 import { useAppSelector } from '../../hooks/use-app-selector/use-app-selector';
 import useKeyPress from '../../hooks/use-key-press/use-key-press';
 import { useOnClickOutside } from '../../hooks/use-on-click-outside/use-on-click-outside';
@@ -13,10 +15,10 @@ function SearchForm(): JSX.Element {
   const [searchQuery, setSearchQuery] = useState('');
   const [currentCameraIndex, setCurrentCameraIndex] = useState(-1);
 
+  const navigate = useNavigate();
+
   const listRef = useRef(null);
   const inputRef = useRef<HTMLInputElement>(null);
-
-  useOnClickOutside(listRef, () => setSearchQuery(''));
 
   const upArrow = useKeyPress({ targetKey: 'ArrowUp' });
   const downArrow = useKeyPress({ targetKey: 'ArrowDown' });
@@ -28,6 +30,8 @@ function SearchForm(): JSX.Element {
 
   const isUpArrowPressed = searchQuery && searchedCameras.length && upArrow;
   const isDownArrowPressed = searchQuery && searchedCameras.length && downArrow;
+
+  useOnClickOutside(listRef, () => setSearchQuery(''));
 
   useEffect(() => {
     if (searchedCameras.length && isUpArrowPressed) {
@@ -52,6 +56,12 @@ function SearchForm(): JSX.Element {
     setSearchQuery('');
   };
 
+  const onSearchItemClick = (cameraId: number) => {
+    navigate(`${AppRoute.Product}/${String(cameraId)}?tab=${DEFAULT_PRODUCT_TAB}`);
+
+    setSearchQuery('');
+  };
+
   return (
     <FocusTrap open>
       <div
@@ -59,7 +69,7 @@ function SearchForm(): JSX.Element {
         ref={listRef}
         tabIndex={-1}
       >
-        <form>
+        <form onSubmit={(evt) => { evt.preventDefault(); }}>
           <label>
             <svg className="form-search__icon" width="16" height="16" aria-hidden="true">
               <use xlinkHref="#icon-lens"></use>
@@ -78,7 +88,14 @@ function SearchForm(): JSX.Element {
             {searchedCameras.map((camera, i) => {
               const isCurrent = i === currentCameraIndex;
 
-              return <SearchItem camera={camera} isCurrent={isCurrent} key={camera.id} />;
+              return (
+                <SearchItem
+                  camera={camera}
+                  isCurrent={isCurrent}
+                  key={camera.id}
+                  onClick={onSearchItemClick}
+                />
+              );
             }
             )}
           </ul>

@@ -1,12 +1,15 @@
-import { useEffect, useRef } from 'react';
+import cn from 'classnames';
+import React, { useEffect, useRef } from 'react';
 import { Camera } from '../../types/camera';
+import classes from './search-item.module.scss';
 
 type SearchItemProps = {
   camera: Camera;
   isCurrent: boolean;
+  onClick: (cameraId: number) => void;
 };
 
-function SearchItem({ camera, isCurrent }: SearchItemProps): JSX.Element {
+function SearchItem({ camera, isCurrent, onClick }: SearchItemProps): JSX.Element {
   const itemRef = useRef<HTMLLIElement>(null);
 
   useEffect(() => {
@@ -15,12 +18,22 @@ function SearchItem({ camera, isCurrent }: SearchItemProps): JSX.Element {
     }
   }, [isCurrent]);
 
+  const handleKeyDown = (evt: React.KeyboardEvent) => {
+    evt.preventDefault();
+
+    if (evt.key === 'Enter') {
+      onClick(camera.id);
+    }
+  };
+
   return (
     <li
-      className="form-search__select-item"
+      className={cn('form-search__select-item', isCurrent && classes.active)}
       tabIndex={isCurrent ? -1 : 0}
       key={camera.id}
       ref={itemRef}
+      onClick={() => onClick(camera.id)}
+      onKeyDown={handleKeyDown}
     >
       {camera.name}
     </li>
