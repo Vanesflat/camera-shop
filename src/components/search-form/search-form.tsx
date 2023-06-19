@@ -1,4 +1,3 @@
-import { FocusTrap } from '@mui/base';
 import cn from 'classnames';
 import React, { useEffect, useMemo, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
@@ -63,54 +62,52 @@ function SearchForm(): JSX.Element {
   };
 
   return (
-    <FocusTrap open>
-      <div
-        className={cn('form-search', searchedCameras.length && searchQuery && 'list-opened')}
-        ref={listRef}
-        tabIndex={-1}
-      >
-        <form onSubmit={(evt) => { evt.preventDefault(); }}>
-          <label>
-            <svg className="form-search__icon" width="16" height="16" aria-hidden="true">
-              <use xlinkHref="#icon-lens"></use>
-            </svg>
-            <input
-              className="form-search__input"
-              type="text"
-              autoComplete="off"
-              placeholder="Поиск по сайту"
-              value={searchQuery}
-              onChange={handleChange}
-              ref={inputRef}
-            />
-          </label>
-          <ul className={cn('form-search__select-list', searchedCameras.length > DISPLAYED_SEARCH_RESULT_COUNT && 'scroller')}>
-            {searchedCameras.map((camera, i) => {
-              const isCurrent = i === currentCameraIndex;
+    <div
+      className={cn('form-search', searchedCameras.length && searchQuery && 'list-opened')}
+      ref={listRef}
+      tabIndex={-1}
+    >
+      <form onSubmit={(evt) => { evt.preventDefault(); }}>
+        <label>
+          <svg className="form-search__icon" width="16" height="16" aria-hidden="true">
+            <use xlinkHref="#icon-lens"></use>
+          </svg>
+          <input
+            className="form-search__input"
+            type="text"
+            autoComplete="off"
+            placeholder="Поиск по сайту"
+            value={searchQuery}
+            onChange={handleChange}
+            ref={inputRef}
+          />
+        </label>
+        <ul className={cn('form-search__select-list', searchedCameras.length > DISPLAYED_SEARCH_RESULT_COUNT && 'scroller')}>
+          {searchedCameras.map((camera, i) => {
+            const isCurrent = i === currentCameraIndex;
 
-              return (
-                <SearchItem
-                  camera={camera}
-                  isCurrent={isCurrent}
-                  key={camera.id}
-                  onClick={onSearchItemClick}
-                />
-              );
-            }
-            )}
-          </ul>
-        </form>
-        <button
-          className="form-search__reset"
-          type="reset"
-          onClick={handleClick}
-        >
-          <svg width="10" height="10" aria-hidden="true">
-            <use xlinkHref="#icon-close"></use>
-          </svg><span className="visually-hidden">Сбросить поиск</span>
-        </button>
-      </div>
-    </FocusTrap>
+            return (
+              <SearchItem
+                camera={camera}
+                isCurrent={isCurrent}
+                key={camera.id}
+                onClick={onSearchItemClick}
+              />
+            );
+          }
+          )}
+        </ul>
+      </form>
+      <button
+        className="form-search__reset"
+        type="reset"
+        onClick={handleClick}
+      >
+        <svg width="10" height="10" aria-hidden="true">
+          <use xlinkHref="#icon-close"></use>
+        </svg><span className="visually-hidden">Сбросить поиск</span>
+      </button>
+    </div>
   );
 }
 

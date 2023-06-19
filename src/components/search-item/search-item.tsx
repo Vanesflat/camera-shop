@@ -19,9 +19,8 @@ function SearchItem({ camera, isCurrent, onClick }: SearchItemProps): JSX.Elemen
   }, [isCurrent]);
 
   const handleKeyDown = (evt: React.KeyboardEvent) => {
-    evt.preventDefault();
-
     if (evt.key === 'Enter') {
+      evt.preventDefault();
       onClick(camera.id);
     }
   };
