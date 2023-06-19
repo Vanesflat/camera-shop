@@ -22,12 +22,12 @@ export enum Status {
 }
 
 export enum NameSpace {
-  App = 'APP',
   Cameras = 'CAMERAS',
   Camera = 'CAMERA',
   Promo = 'PROMO',
   Reviews = 'REVIEWS',
   SimilarCameras = 'SIMILAR-CAMERAS',
+  Sort = 'SORT',
 }
 
 export enum Type {

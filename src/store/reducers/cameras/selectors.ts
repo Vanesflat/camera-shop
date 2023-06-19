@@ -3,7 +3,7 @@ import { NameSpace, Status } from '../../../const';
 import { Camera } from '../../../types/camera';
 import { State } from '../../../types/store';
 import { sortCameras } from '../../../utils/sort';
-import { getCurrentSortOrder, getCurrentSortType } from '../app/selectors';
+import { getCurrentSortOrder, getCurrentSortType } from '../sort/selectors';
 
 export const getCameras = (state: State): Camera[] => state[NameSpace.Cameras].cameras;
 export const getStatus = (state: State): Status => state[NameSpace.Cameras].status;

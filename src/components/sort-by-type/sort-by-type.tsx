@@ -3,8 +3,8 @@ import { URLSearchParams } from 'url';
 import { AppRoute, SortType, sortTypeQueryValue } from '../../const';
 import { useAppDispatch } from '../../hooks/use-app-dispatch/use-app-dispatch';
 import { useAppSelector } from '../../hooks/use-app-selector/use-app-selector';
-import { changeSortType } from '../../store/reducers/app/app';
-import { getCurrentSortType } from '../../store/reducers/app/selectors';
+import { changeSortType } from '../../store/reducers/sort/sort';
+import { getCurrentSortType } from '../../store/reducers/sort/selectors';
 
 type SortByTypeProps = {
   currentPage: number;

@@ -12,7 +12,7 @@ import { fetchPromoAction } from '../../store/reducers/promo/api-actions';
 import { getPromoStatus } from '../../store/reducers/promo/selectors';
 import Catalog from '../../components/catalog/catalog';
 import { useSearchParams } from 'react-router-dom';
-import { getCurrentSortOrder, getCurrentSortType } from '../../store/reducers/app/selectors';
+import { getCurrentSortOrder, getCurrentSortType } from '../../store/reducers/sort/selectors';
 import { sortOrderQueryValue, sortTypeQueryValue } from '../../const';
 
 function CatalogPage(): JSX.Element {

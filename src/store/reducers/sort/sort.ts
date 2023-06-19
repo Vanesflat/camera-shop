@@ -1,18 +1,18 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { NameSpace, SortType, SortOrder } from '../../../const';
 
-export type AppSlice = {
+export type SortSlice = {
   sortType: SortType | null;
   sortOrder: SortOrder | null;
 }
 
-const initialState: AppSlice = {
+const initialState: SortSlice = {
   sortType: null,
   sortOrder: null
 };
 
-export const appSlice = createSlice({
-  name: NameSpace.App,
+export const sortSlice = createSlice({
+  name: NameSpace.Sort,
   initialState,
   reducers: {
     changeSortType: (state, action: PayloadAction<SortType>) => {
@@ -35,4 +35,4 @@ export const appSlice = createSlice({
 export const {
   changeSortType,
   changeSortOrder
-} = appSlice.actions;
+} = sortSlice.actions;
