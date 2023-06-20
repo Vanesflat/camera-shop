@@ -1,20 +1,13 @@
 import { Link } from 'react-router-dom';
-import { URLSearchParams } from 'url';
 import { SortOrder, sortOrderQueryValue } from '../../const';
 import { useAppDispatch } from '../../hooks/use-app-dispatch/use-app-dispatch';
 import { useAppSelector } from '../../hooks/use-app-selector/use-app-selector';
 import { changeSortOrder } from '../../store/reducers/sort/sort';
 import { getCurrentSortOrder } from '../../store/reducers/sort/selectors';
 
-type SortByOrderProps = {
-  searchParams: URLSearchParams;
-};
-
-function SortByOrder({ searchParams }: SortByOrderProps): JSX.Element {
+function SortByOrder(): JSX.Element {
   const currentSortOrder = useAppSelector(getCurrentSortOrder);
   const dispatch = useAppDispatch();
-
-  const orderParam = searchParams.get('order');
 
   const handleClick = (text: SortOrder) => {
     dispatch(changeSortOrder(text));
@@ -34,7 +27,7 @@ function SortByOrder({ searchParams }: SortByOrderProps): JSX.Element {
             id={type}
             name="sort-icon"
             aria-label={text}
-            checked={text === currentSortOrder || orderParam === sortOrderQueryValue[text]}
+            checked={text === currentSortOrder}
             readOnly
           />
           <label htmlFor={type}>

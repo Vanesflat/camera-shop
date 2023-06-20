@@ -13,11 +13,12 @@ import { getPromoStatus } from '../../store/reducers/promo/selectors';
 import Catalog from '../../components/catalog/catalog';
 import { useSearchParams } from 'react-router-dom';
 import { getCurrentSortOrder, getCurrentSortType } from '../../store/reducers/sort/selectors';
-import { Category, Level, sortOrderQueryValue, sortTypeQueryValue, Type } from '../../const';
+import { Category, Level, SortOrder, sortOrderQueryValue, SortType, Type } from '../../const';
 import { getCurrentCategory, getCurrentLevels, getCurrentMaxPrice, getCurrentMinPrice, getCurrentTypes } from '../../store/reducers/filter/selectors';
 import { QueryParam } from '../../types/query-param';
 import { changeCategory, changeLevel, changeType, setMaxPrice, setMinPrice } from '../../store/reducers/filter/filter';
 import { ucFirst } from '../../utils/common';
+import { changeSortOrder, changeSortType } from '../../store/reducers/sort/sort';
 
 function CatalogPage(): JSX.Element {
   const camerasStatus = useAppSelector(getCamerasStatus);
@@ -32,6 +33,9 @@ function CatalogPage(): JSX.Element {
   const currentMaxPrice = useAppSelector(getCurrentMaxPrice);
 
   const [searchParams, setSearchParams] = useSearchParams();
+
+  const sortType = searchParams.get('sortBy');
+  const sortOrder = searchParams.get('order');
 
   const category = searchParams.get('category');
   const type: string[] = [];
@@ -53,7 +57,7 @@ function CatalogPage(): JSX.Element {
     const params: QueryParam = {};
 
     if (currentSortOrder && currentSortType) {
-      params.sortBy = sortTypeQueryValue[currentSortType];
+      params.sortBy = currentSortType;
       params.order = sortOrderQueryValue[currentSortOrder];
     } else if (!currentCategory && !currentTypes.length && !currentLevels.length && !currentMinPrice && !currentMaxPrice) {
       return;
@@ -68,6 +72,17 @@ function CatalogPage(): JSX.Element {
   }, [currentSortType, currentSortOrder, currentCategory, currentTypes, currentLevels, currentMinPrice, currentMaxPrice]);
 
   const dispatch = useAppDispatch();
+
+  useEffect(() => {
+    if (!sortType && !sortOrder) {
+      return;
+    }
+
+    if (sortType && sortOrder) {
+      dispatch(changeSortType(sortType as SortType));
+      dispatch(changeSortOrder(sortOrder === sortOrderQueryValue[SortOrder.Up] ? SortOrder.Up : SortOrder.Down));
+    }
+  }, [sortType, sortOrder, dispatch]);
 
   useEffect(() => {
     if (category) {
@@ -127,7 +142,7 @@ function CatalogPage(): JSX.Element {
               <h1 className="title title--h2">Каталог фото- и видеотехники</h1>
               <div className="page-content__columns">
                 <CatalogAside />
-                <Catalog searchParams={searchParams} />
+                <Catalog />
               </div>
             </div>
           </section>

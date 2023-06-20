@@ -1,5 +1,4 @@
 import { useParams } from 'react-router-dom';
-import { URLSearchParams } from 'url';
 import { useAppSelector } from '../../hooks/use-app-selector/use-app-selector';
 import { getfilteredCameras } from '../../store/reducers/cameras/selectors';
 import CamerasEmpty from '../cameras-empty/cameras-empty';
@@ -9,11 +8,7 @@ import Sort from '../sort/sort';
 
 const CAMERAS_PER_PAGE = 9;
 
-type CatalogProps = {
-  searchParams: URLSearchParams;
-}
-
-function Catalog({ searchParams }: CatalogProps): JSX.Element {
+function Catalog(): JSX.Element {
   const cameras = useAppSelector(getfilteredCameras);
 
   const param = useParams().page;
@@ -28,7 +23,7 @@ function Catalog({ searchParams }: CatalogProps): JSX.Element {
 
   return (
     <div className="catalog__content">
-      <Sort searchParams={searchParams} />
+      <Sort />
       {!renderedCameras.length
         ? <CamerasEmpty />
         : <ProductCardsList cameras={renderedCameras} />}
