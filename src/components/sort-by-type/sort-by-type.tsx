@@ -1,31 +1,23 @@
-import { generatePath, Link, useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { URLSearchParams } from 'url';
-import { AppRoute, SortType, sortTypeQueryValue } from '../../const';
+import { SortType, sortTypeQueryValue } from '../../const';
 import { useAppDispatch } from '../../hooks/use-app-dispatch/use-app-dispatch';
 import { useAppSelector } from '../../hooks/use-app-selector/use-app-selector';
 import { changeSortType } from '../../store/reducers/sort/sort';
 import { getCurrentSortType } from '../../store/reducers/sort/selectors';
 
 type SortByTypeProps = {
-  currentPage: number;
   searchParams: URLSearchParams;
 };
 
-function SortByType({ currentPage, searchParams }: SortByTypeProps): JSX.Element {
+function SortByType({ searchParams }: SortByTypeProps): JSX.Element {
   const currentSortType = useAppSelector(getCurrentSortType);
   const dispatch = useAppDispatch();
-
-  const navigate = useNavigate();
 
   const typeParam = searchParams.get('sortBy');
 
   const handleClick = (text: SortType) => {
     dispatch(changeSortType(text));
-
-    navigate({
-      pathname: `${generatePath(AppRoute.Catalog, { page: `page_${currentPage}` })}`,
-      search: searchParams.toString()
-    });
   };
 
   return (

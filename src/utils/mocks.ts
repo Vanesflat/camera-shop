@@ -17,7 +17,8 @@ export const makeFakeCamera = (): Camera => ({
   previewImg: image.imageUrl(),
   previewImg2x: image.imageUrl(),
   previewImgWebp: image.imageUrl(),
-  previewImgWebp2x: image.imageUrl()
+  previewImgWebp2x: image.imageUrl(),
+  rating: datatype.number()
 });
 
 export const makeFakePromo = (): Promo => ({

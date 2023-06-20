@@ -1,31 +1,23 @@
-import { generatePath, Link, useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { URLSearchParams } from 'url';
-import { AppRoute, SortOrder, sortOrderQueryValue } from '../../const';
+import { SortOrder, sortOrderQueryValue } from '../../const';
 import { useAppDispatch } from '../../hooks/use-app-dispatch/use-app-dispatch';
 import { useAppSelector } from '../../hooks/use-app-selector/use-app-selector';
 import { changeSortOrder } from '../../store/reducers/sort/sort';
 import { getCurrentSortOrder } from '../../store/reducers/sort/selectors';
 
 type SortByOrderProps = {
-  currentPage: number;
   searchParams: URLSearchParams;
 };
 
-function SortByOrder({ currentPage, searchParams }: SortByOrderProps): JSX.Element {
+function SortByOrder({ searchParams }: SortByOrderProps): JSX.Element {
   const currentSortOrder = useAppSelector(getCurrentSortOrder);
   const dispatch = useAppDispatch();
-
-  const navigate = useNavigate();
 
   const orderParam = searchParams.get('order');
 
   const handleClick = (text: SortOrder) => {
     dispatch(changeSortOrder(text));
-
-    navigate({
-      pathname: `${generatePath(AppRoute.Catalog, { page: `page_${currentPage}` })}`,
-      search: searchParams.toString()
-    });
   };
 
   return (

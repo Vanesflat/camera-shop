@@ -16,6 +16,7 @@ import { getReviews, getReviewsStatus } from '../../store/reducers/reviews/selec
 import { fetchSimilarCamerasAction } from '../../store/reducers/similar-products/api-actions';
 import { getSimilarCamerasStatus } from '../../store/reducers/similar-products/selectors';
 import Rating from '../../components/rating/rating';
+import { getAverageRate } from '../../utils/review';
 
 function ProductPage(): JSX.Element {
   const camera = useAppSelector(getCamera);
@@ -23,6 +24,8 @@ function ProductPage(): JSX.Element {
   const reviews = useAppSelector(getReviews);
   const reviewsStatus = useAppSelector(getReviewsStatus);
   const similarCamerasStatus = useAppSelector(getSimilarCamerasStatus);
+
+  const rating = getAverageRate(reviews);
 
   const cameraId = Number(useParams().id);
 
@@ -61,7 +64,7 @@ function ProductPage(): JSX.Element {
                 </div>
                 <div className="product__content">
                   <h1 className="title title--h3">{camera.name}</h1>
-                  <Rating reviews={reviews} />
+                  <Rating rating={rating} reviewCount={camera.reviewCount} />
                   <p className="product__price"><span className="visually-hidden">Цена:</span>{formatPrice(camera.price)} ₽</p>
                   <button className="btn btn--purple" type="button">
                     <svg width="24" height="16" aria-hidden="true">

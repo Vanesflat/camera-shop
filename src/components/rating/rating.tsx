@@ -1,13 +1,12 @@
-import { Review } from '../../types/review';
-import { getAverageRate, getStarsArray } from '../../utils/review';
+import { getStarsArray } from '../../utils/review';
 
 type RatingProps = {
-  reviews: Review[];
+  rating: number;
+  reviewCount: number;
 };
 
-function Rating({ reviews }: RatingProps): JSX.Element {
-  const averageRate = getAverageRate(reviews);
-  const stars: boolean[] = getStarsArray(averageRate);
+function Rating({ rating, reviewCount }: RatingProps): JSX.Element {
+  const stars: boolean[] = getStarsArray(rating);
 
   return (
     <div className="rate product__rate">
@@ -16,8 +15,8 @@ function Rating({ reviews }: RatingProps): JSX.Element {
           <use xlinkHref={star ? '#icon-full-star' : '#icon-star'}></use>
         </svg>
       ))}
-      <p className="visually-hidden">Рейтинг: {averageRate}</p>
-      <p className="rate__count"><span className="visually-hidden">Всего оценок:</span>{reviews.length}</p>
+      <p className="visually-hidden">Рейтинг: {rating}</p>
+      <p className="rate__count"><span className="visually-hidden">Всего оценок:</span>{reviewCount}</p>
     </div>
   );
 }

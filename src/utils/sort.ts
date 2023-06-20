@@ -6,7 +6,7 @@ export const sortCameras = (cameras: Camera[], sortType: SortType | null, sortOr
 
   switch (sortType) {
     case SortType.SortPopular:
-      sortedCamerasByType = [...cameras].sort((a, b) => a.reviewCount - b.reviewCount);
+      sortedCamerasByType = [...cameras].sort((a, b) => a.rating - b.rating);
       break;
     case SortType.SortPrice:
       sortedCamerasByType = [...cameras].sort((a, b) => b.price - a.price);

@@ -1,9 +1,7 @@
-import { CSSProperties, useCallback, useEffect, useState } from 'react';
+import { CSSProperties } from 'react';
 import { Link } from 'react-router-dom';
-import { APIRoute, AppRoute, DEFAULT_PRODUCT_TAB } from '../../const';
-import { api } from '../../store/store';
+import { AppRoute, DEFAULT_PRODUCT_TAB } from '../../const';
 import { Camera } from '../../types/camera';
-import { Review } from '../../types/review';
 import { formatPrice } from '../../utils/common';
 import Rating from '../rating/rating';
 
@@ -13,18 +11,6 @@ type ProductCardProps = {
 }
 
 function ProductCard({ style, camera }: ProductCardProps): JSX.Element {
-  const [reviews, setReviews] = useState<Review[]>([]);
-
-  const fetchReviews = useCallback(async () => {
-    const { data } = await api.get<Review[]>(`${APIRoute.Cameras}/${camera.id}${APIRoute.Reviews}`);
-
-    setReviews(data);
-  }, [camera.id]);
-
-  useEffect(() => {
-    fetchReviews();
-  }, [fetchReviews]);
-
   return (
     <div className="product-card is-active" style={style} data-testid="product-card">
       <div className="product-card__img">
@@ -40,7 +26,7 @@ function ProductCard({ style, camera }: ProductCardProps): JSX.Element {
         </picture>
       </div>
       <div className="product-card__info">
-        <Rating reviews={reviews} />
+        <Rating rating={camera.rating} reviewCount={camera.reviewCount} />
         <p className="product-card__title">{camera.name}</p>
         <p className="product-card__price"><span className="visually-hidden">Цена:</span>{formatPrice(camera.price)} ₽
         </p>
