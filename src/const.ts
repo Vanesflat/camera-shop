@@ -70,23 +70,5 @@ export const sortTypeQueryValue = {
   [SortType.SortPrice]: 'price'
 };
 
-export const categoryQueryValue = {
-  [Category.Camera]: 'camera',
-  [Category.Videocamera]: 'videocamera'
-};
-
-export const typeQueryValue = {
-  [Type.Collectible]: 'collectible',
-  [Type.Digital]: 'digital',
-  [Type.Film]: 'film',
-  [Type.Instant]: 'instant'
-};
-
-export const levelQueryValue = {
-  [Level.Amateur]: 'amateur',
-  [Level.Null]: 'null',
-  [Level.Professional]: 'professional'
-};
-
 export const STARS_COUNT = 5;
 export const DEFAULT_PRODUCT_TAB = 'description';

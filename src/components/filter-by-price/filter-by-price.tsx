@@ -3,6 +3,7 @@ import { useAppDispatch } from '../../hooks/use-app-dispatch/use-app-dispatch';
 import { useAppSelector } from '../../hooks/use-app-selector/use-app-selector';
 import { getfilteredCameras } from '../../store/reducers/cameras/selectors';
 import { setMaxPrice, setMinPrice } from '../../store/reducers/filter/filter';
+import { getCurrentMaxPrice, getCurrentMinPrice } from '../../store/reducers/filter/selectors';
 import { getPrice } from '../../utils/filter';
 
 type FilterByPriceProps = {
@@ -11,14 +12,16 @@ type FilterByPriceProps = {
 
 function FilterByPrice({ isReset }: FilterByPriceProps): JSX.Element {
   const cameras = useAppSelector(getfilteredCameras);
-
-  const [minPriceValue, setMinPriceValue] = useState(0);
-  const [maxPriceValue, setMaxPriceValue] = useState(0);
-
-  const dispatch = useAppDispatch();
+  const currentMinPrice = useAppSelector(getCurrentMinPrice);
+  const currentMaxPrice = useAppSelector(getCurrentMaxPrice);
 
   const minPrice = getPrice(cameras, 'min');
   const maxPrice = getPrice(cameras, 'max');
+
+  const [minPriceValue, setMinPriceValue] = useState(0 || currentMinPrice < +minPrice ? +minPrice : currentMinPrice);
+  const [maxPriceValue, setMaxPriceValue] = useState(0 || currentMaxPrice > +maxPrice ? +maxPrice : currentMaxPrice);
+
+  const dispatch = useAppDispatch();
 
   useEffect(() => {
     if (isReset) {

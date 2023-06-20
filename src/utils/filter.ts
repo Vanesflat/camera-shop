@@ -26,7 +26,7 @@ export const filterCamerasByLevels = (cameras: Camera[], levels: Level[]): Camer
 };
 
 export const getPrice = (cameras: Camera[], type: 'max' | 'min'): string => {
-  if(!cameras.length) {
+  if (!cameras.length) {
     return '';
   }
 

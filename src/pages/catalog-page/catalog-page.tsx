@@ -13,9 +13,11 @@ import { getPromoStatus } from '../../store/reducers/promo/selectors';
 import Catalog from '../../components/catalog/catalog';
 import { useSearchParams } from 'react-router-dom';
 import { getCurrentSortOrder, getCurrentSortType } from '../../store/reducers/sort/selectors';
-import { categoryQueryValue, Level, levelQueryValue, sortOrderQueryValue, sortTypeQueryValue, Type, typeQueryValue } from '../../const';
+import { Category, Level, sortOrderQueryValue, sortTypeQueryValue, Type } from '../../const';
 import { getCurrentCategory, getCurrentLevels, getCurrentMaxPrice, getCurrentMinPrice, getCurrentTypes } from '../../store/reducers/filter/selectors';
 import { QueryParam } from '../../types/query-param';
+import { changeCategory, changeLevel, changeType, setMaxPrice, setMinPrice } from '../../store/reducers/filter/filter';
+import { ucFirst } from '../../utils/common';
 
 function CatalogPage(): JSX.Element {
   const camerasStatus = useAppSelector(getCamerasStatus);
@@ -31,6 +33,22 @@ function CatalogPage(): JSX.Element {
 
   const [searchParams, setSearchParams] = useSearchParams();
 
+  const category = searchParams.get('category');
+  const type: string[] = [];
+  const level: string[] = [];
+  const priceGte = searchParams.get('price_gte');
+  const priceLte = searchParams.get('price_lte');
+
+  for (const [key, value] of searchParams.entries()) {
+    if (key === 'type' && !type.includes(value)) {
+      type.push(value);
+    }
+
+    if (key === 'level' && !level.includes(value)) {
+      level.push(value);
+    }
+  }
+
   const currentParams = useMemo(() => {
     const params: QueryParam = {};
 
@@ -40,35 +58,50 @@ function CatalogPage(): JSX.Element {
     } else if (!currentCategory && !currentTypes.length && !currentLevels.length && !currentMinPrice && !currentMaxPrice) {
       return;
     }
-
-    if (currentCategory) {
-      params.category = categoryQueryValue[currentCategory];
-    }
-    if (currentTypes) {
-      params.type = currentTypes.map((item) => {
-        item = typeQueryValue[item] as Type;
-
-        return item;
-      });
-    }
-    if (currentLevels) {
-      params.level = currentLevels.map((item) => {
-        item = levelQueryValue[item] as Level;
-
-        return item;
-      });
-    }
-    if (currentMinPrice) {
-      params['price_gte'] = currentMinPrice.toString();
-    }
-    if (currentMaxPrice) {
-      params['price_lte'] = currentMaxPrice.toString();
-    }
+    if (currentCategory) { params.category = currentCategory; }
+    if (currentTypes) { params.type = currentTypes; }
+    if (currentLevels) { params.level = currentLevels; }
+    if (currentMinPrice) { params['price_gte'] = currentMinPrice.toString(); }
+    if (currentMaxPrice) { params['price_lte'] = currentMaxPrice.toString(); }
 
     return params;
   }, [currentSortType, currentSortOrder, currentCategory, currentTypes, currentLevels, currentMinPrice, currentMaxPrice]);
 
   const dispatch = useAppDispatch();
+
+  useEffect(() => {
+    if (category) {
+      dispatch(changeCategory(ucFirst(category) as Category));
+    }
+  }, [category, dispatch]);
+
+  useEffect(() => {
+    if (priceGte) {
+      dispatch(setMinPrice(+priceGte));
+    }
+
+    if (priceLte) {
+      dispatch(setMaxPrice(+priceLte));
+    }
+  }, [priceGte, priceLte, dispatch]);
+
+  useEffect(() => {
+    if (type.length) {
+      type.forEach((item) => {
+        dispatch(changeType(ucFirst(item) as Type));
+      });
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [dispatch]);
+
+  useEffect(() => {
+    if (level.length) {
+      level.forEach((item) => {
+        dispatch(changeLevel(ucFirst(item) as Level));
+      });
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [dispatch]);
 
   useEffect(() => {
     setSearchParams(currentParams);
