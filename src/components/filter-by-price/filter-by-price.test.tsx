@@ -14,7 +14,7 @@ describe('Component: FilterByPrice', () => {
     render(
       <Provider store={store}>
         <HistoryRouter history={history}>
-          <FilterByPrice />
+          <FilterByPrice isReset />
         </HistoryRouter>
       </Provider>
     );
