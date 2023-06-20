@@ -54,6 +54,13 @@ function FilterByPrice({ isReset }: FilterByPriceProps): JSX.Element {
       return;
     }
 
+    if (minPriceValue > +maxPrice) {
+      setMinPriceValue(+maxPrice);
+      dispatch(setMinPrice(+maxPrice));
+
+      return;
+    }
+
     dispatch(setMinPrice(minPriceValue));
   };
 
