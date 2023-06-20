@@ -28,7 +28,8 @@ export enum NameSpace {
   Reviews = 'REVIEWS',
   SimilarCameras = 'SIMILAR-CAMERAS',
   Sort = 'SORT',
-  Filter = 'FILTER'
+  Filter = 'FILTER',
+  Notification = 'NOTIFICATION'
 }
 
 export enum Type {

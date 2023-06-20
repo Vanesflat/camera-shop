@@ -2,6 +2,7 @@ import { createAsyncThunk } from '@reduxjs/toolkit';
 import { APIRoute } from '../../../const';
 import { Promo } from '../../../types/promo';
 import { ThunkOptions } from '../../../types/store';
+import { pushNotification } from '../notifications/notifications';
 
 export const fetchPromoAction = createAsyncThunk<Promo, undefined, ThunkOptions>(
   'data/fetchPromo',
@@ -10,8 +11,9 @@ export const fetchPromoAction = createAsyncThunk<Promo, undefined, ThunkOptions>
       const { data } = await api.get<Promo>(APIRoute.Promo);
 
       return data;
-    } catch {
-      throw new Error();
+    } catch (err) {
+      dispatch(pushNotification({ type: 'error', message: 'Ошибка загрузки данных промо-товара' }));
+      throw err;
     }
   }
 );

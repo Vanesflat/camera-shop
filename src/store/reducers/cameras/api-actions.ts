@@ -4,6 +4,7 @@ import { Camera } from '../../../types/camera';
 import { Review } from '../../../types/review';
 import { ThunkOptions } from '../../../types/store';
 import { getAverageRate } from '../../../utils/review';
+import { pushNotification } from '../notifications/notifications';
 
 export const fetchCamerasAction = createAsyncThunk<Camera[], undefined, ThunkOptions>(
   'data/fetchCameras',
@@ -18,8 +19,9 @@ export const fetchCamerasAction = createAsyncThunk<Camera[], undefined, ThunkOpt
       }
 
       return data;
-    } catch {
-      throw new Error();
+    } catch (err) {
+      dispatch(pushNotification({ type: 'error', message: 'Ошибка загрузки данных камер' }));
+      throw err;
     }
   }
 );
