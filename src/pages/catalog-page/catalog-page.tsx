@@ -74,10 +74,6 @@ function CatalogPage(): JSX.Element {
   const dispatch = useAppDispatch();
 
   useEffect(() => {
-    if (!sortType && !sortOrder) {
-      return;
-    }
-
     if (sortType && sortOrder) {
       dispatch(changeSortType(sortType as SortType));
       dispatch(changeSortOrder(sortOrder === sortOrderQueryValue[SortOrder.Up] ? SortOrder.Up : SortOrder.Down));

@@ -18,8 +18,8 @@ function FilterByPrice({ isReset }: FilterByPriceProps): JSX.Element {
   const minPrice = getPrice(cameras, 'min');
   const maxPrice = getPrice(cameras, 'max');
 
-  const [minPriceValue, setMinPriceValue] = useState(0 || currentMinPrice < +minPrice ? +minPrice : currentMinPrice);
-  const [maxPriceValue, setMaxPriceValue] = useState(0 || currentMaxPrice > +maxPrice ? +maxPrice : currentMaxPrice);
+  const [minPriceValue, setMinPriceValue] = useState(0 || currentMinPrice);
+  const [maxPriceValue, setMaxPriceValue] = useState(0 || currentMaxPrice);
 
   const dispatch = useAppDispatch();
 
