@@ -1,6 +1,7 @@
 import { commerce, datatype, image, lorem, name } from 'faker';
 import { Category, Level, Type } from '../const';
 import { Camera, CameraWithoutRating } from '../types/camera';
+import { Notification } from '../types/notification';
 import { Promo } from '../types/promo';
 import { Review } from '../types/review';
 
@@ -55,4 +56,11 @@ export const makeFakeReview = (): Review => ({
   disadvantage: lorem.words(),
   review: lorem.words(),
   rating: datatype.number()
+});
+
+export const makeFakeNotification = (): Notification => ({
+  id: datatype.uuid(),
+  type: 'error',
+  message: lorem.text(),
+  duration: datatype.number({ min: 1000, max: 4000 })
 });

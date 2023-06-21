@@ -22,7 +22,7 @@ function Catalog(): JSX.Element {
   const renderedCameras = cameras.slice((currentPage - 1) * CAMERAS_PER_PAGE, currentPage * CAMERAS_PER_PAGE);
 
   return (
-    <div className="catalog__content">
+    <div className="catalog__content" data-testid="catalog">
       <Sort />
       {!renderedCameras.length
         ? <CamerasEmpty />

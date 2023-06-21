@@ -66,6 +66,7 @@ function SearchForm(): JSX.Element {
       className={cn('form-search', searchedCameras.length && searchQuery && 'list-opened')}
       ref={listRef}
       tabIndex={-1}
+      data-testid="search-form"
     >
       <form onSubmit={(evt) => { evt.preventDefault(); }}>
         <label>

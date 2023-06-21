@@ -35,6 +35,7 @@ function Modal({ isOpen, onCloseClick, children }: ModalProps): JSX.Element {
         className={cn('modal', isOpen && 'is-active')}
         ref={modalRef}
         tabIndex={-1}
+        data-testid="modal"
       >
         <div className="modal__wrapper">
           <div className="modal__overlay" onClick={onCloseClick}></div>

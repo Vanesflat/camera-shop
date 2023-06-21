@@ -14,7 +14,7 @@ function SortByOrder(): JSX.Element {
   };
 
   return (
-    <div className="catalog-sort__order" >
+    <div className="catalog-sort__order" data-testid="sort-by-order">
       {Object.entries(SortOrder).map(([type, text]) => (
         <Link
           className={`catalog-sort__btn catalog-sort__btn--${type.toLowerCase()}`}

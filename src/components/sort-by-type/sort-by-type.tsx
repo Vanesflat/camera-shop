@@ -14,7 +14,7 @@ function SortByType(): JSX.Element {
   };
 
   return (
-    <div className="catalog-sort__type">
+    <div className="catalog-sort__type" data-testid="sort-by-type">
       {Object.entries(SortType).map(([type, text]) => (
         <Link
           className="catalog-sort__btn-text"

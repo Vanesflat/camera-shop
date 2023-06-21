@@ -33,6 +33,7 @@ function SearchItem({ camera, isCurrent, onClick }: SearchItemProps): JSX.Elemen
       ref={itemRef}
       onClick={() => onClick(camera.id)}
       onKeyDown={handleKeyDown}
+      data-testid="search-item"
     >
       {camera.name}
     </li>
