@@ -4,11 +4,10 @@ import { useNavigate } from 'react-router-dom';
 import { AppRoute, DEFAULT_PRODUCT_TAB } from '../../const';
 import { useAppSelector } from '../../hooks/use-app-selector/use-app-selector';
 import useKeyPress from '../../hooks/use-key-press/use-key-press';
-import { useOnClickOutside } from '../../hooks/use-on-click-outside/use-on-click-outside';
+import { useOutsideClick } from '../../hooks/use-outside-click/use-outside-click';
 import { getCameras } from '../../store/reducers/cameras/selectors';
 import SearchItem from '../search-item/search-item';
-
-const DISPLAYED_SEARCH_RESULT_COUNT = 4;
+import { DISPLAYED_SEARCH_RESULT_COUNT } from './const';
 
 function SearchForm(): JSX.Element {
   const [searchQuery, setSearchQuery] = useState('');
@@ -30,7 +29,7 @@ function SearchForm(): JSX.Element {
   const isUpArrowPressed = searchQuery && searchedCameras.length && upArrow;
   const isDownArrowPressed = searchQuery && searchedCameras.length && downArrow;
 
-  useOnClickOutside(listRef, () => setSearchQuery(''));
+  useOutsideClick(listRef, () => setSearchQuery(''));
 
   useEffect(() => {
     if (searchedCameras.length && isUpArrowPressed) {

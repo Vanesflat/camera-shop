@@ -7,6 +7,7 @@ import { getCurrentSortType } from '../../store/reducers/sort/selectors';
 
 function SortByType(): JSX.Element {
   const currentSortType = useAppSelector(getCurrentSortType);
+
   const dispatch = useAppDispatch();
 
   const handleClick = (text: SortType) => {

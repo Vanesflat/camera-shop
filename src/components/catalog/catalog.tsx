@@ -5,8 +5,7 @@ import CamerasEmpty from '../cameras-empty/cameras-empty';
 import Pagination from '../pagination/pagination';
 import ProductCardsList from '../product-cards-list/product-cards-list';
 import Sort from '../sort/sort';
-
-const CAMERAS_PER_PAGE = 9;
+import { CAMERAS_PER_PAGE } from './const';
 
 function Catalog(): JSX.Element {
   const cameras = useAppSelector(getfilteredCameras);

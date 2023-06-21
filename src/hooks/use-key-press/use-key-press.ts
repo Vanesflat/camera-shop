@@ -7,7 +7,7 @@ interface UseKeyPressOptions {
 export default function useKeyPress({ targetKey }: UseKeyPressOptions): boolean {
   const [keyPressed, setKeyPressed] = useState(false);
 
-  const downHandler = useCallback(
+  const handleDownPress = useCallback(
     ({ key }: { key: string }) => {
       if (key === targetKey) {
         setKeyPressed(true);
@@ -16,7 +16,7 @@ export default function useKeyPress({ targetKey }: UseKeyPressOptions): boolean 
     [targetKey],
   );
 
-  const upHandler = useCallback(
+  const handleUpPress = useCallback(
     ({ key }: { key: string }) => {
       if (key === targetKey) {
         setKeyPressed(false);
@@ -26,14 +26,14 @@ export default function useKeyPress({ targetKey }: UseKeyPressOptions): boolean 
   );
 
   useEffect(() => {
-    window.addEventListener('keydown', downHandler);
-    window.addEventListener('keyup', upHandler);
+    window.addEventListener('keydown', handleDownPress);
+    window.addEventListener('keyup', handleUpPress);
 
     return () => {
-      window.removeEventListener('keydown', downHandler);
-      window.removeEventListener('keyup', upHandler);
+      window.removeEventListener('keydown', handleDownPress);
+      window.removeEventListener('keyup', handleUpPress);
     };
-  }, [downHandler, upHandler]);
+  }, [handleDownPress, handleUpPress]);
 
   return keyPressed;
 }

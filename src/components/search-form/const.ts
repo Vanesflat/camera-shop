@@ -1,0 +1,1 @@
+export const DISPLAYED_SEARCH_RESULT_COUNT = 4;

@@ -8,12 +8,12 @@ function ReviewSuccessModal(): JSX.Element {
   const sendReviewStatus = useAppSelector(getSendReviewStatus);
   const dispatch = useAppDispatch();
 
-  const onCloseClick = () => {
+  const handleCloseClick = () => {
     dispatch(changePostStatus());
   };
 
   return (
-    <Modal isOpen={sendReviewStatus.isSuccess} onCloseClick={onCloseClick}>
+    <Modal isOpen={sendReviewStatus.isSuccess} onCloseClick={handleCloseClick}>
       <p className="title title--h4">Спасибо за отзыв</p>
       <svg className="modal__icon" width="80" height="78" aria-hidden="true">
         <use xlinkHref="#icon-review-success"></use>
@@ -22,7 +22,7 @@ function ReviewSuccessModal(): JSX.Element {
         <button
           className="btn btn--purple modal__btn modal__btn--fit-width"
           type="button"
-          onClick={onCloseClick}
+          onClick={handleCloseClick}
         >
           Вернуться к покупкам
         </button>

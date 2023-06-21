@@ -11,7 +11,7 @@ type ModalProps = {
 function Modal({ isOpen, onCloseClick, children }: ModalProps): JSX.Element {
   const modalRef = useRef(null);
 
-  const onEscapeKeydown = useCallback((evt: KeyboardEvent) => {
+  const handleEscapeKeydown = useCallback((evt: KeyboardEvent) => {
     if (evt.key === 'Escape') {
       onCloseClick();
     }
@@ -20,14 +20,14 @@ function Modal({ isOpen, onCloseClick, children }: ModalProps): JSX.Element {
   useEffect(() => {
     if (isOpen && modalRef.current) {
       document.body.style.overflow = 'hidden';
-      document.addEventListener('keydown', onEscapeKeydown);
+      document.addEventListener('keydown', handleEscapeKeydown);
     }
 
     return () => {
       document.body.style.overflow = '';
-      document.removeEventListener('keydown', onEscapeKeydown);
+      document.removeEventListener('keydown', handleEscapeKeydown);
     };
-  }, [isOpen, onEscapeKeydown]);
+  }, [isOpen, handleEscapeKeydown]);
 
   return (
     <FocusTrap open>

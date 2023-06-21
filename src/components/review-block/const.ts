@@ -1,0 +1,1 @@
+export const MAX_VISIBLE_REVIEWS_COUNT = 3;

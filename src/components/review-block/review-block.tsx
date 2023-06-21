@@ -4,8 +4,7 @@ import { getRenderedReviews } from '../../store/reducers/reviews/selectors';
 import ReviewList from '../review-list/review-list';
 import ReviewModal from '../review-modal/review-modal';
 import ReviewSuccessModal from '../review-success-modal/review-success-modal';
-
-const MAX_VISIBLE_REVIEWS_COUNT = 3;
+import { MAX_VISIBLE_REVIEWS_COUNT } from './const';
 
 function ReviewBlock(): JSX.Element {
   const reviews = useAppSelector(getRenderedReviews);
@@ -22,7 +21,7 @@ function ReviewBlock(): JSX.Element {
     setOpenedModal(true);
   };
 
-  const onCloseClick = () => {
+  const handleCloseClick = () => {
     setOpenedModal(false);
   };
 
@@ -55,7 +54,7 @@ function ReviewBlock(): JSX.Element {
           </div>
         </section>
       </div>
-      <ReviewModal isOpen={openedModal} onCloseClick={onCloseClick} />
+      <ReviewModal isOpen={openedModal} onCloseClick={handleCloseClick} />
       <ReviewSuccessModal />
     </>
   );

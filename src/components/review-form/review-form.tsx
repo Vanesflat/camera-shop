@@ -6,14 +6,7 @@ import cn from 'classnames';
 import { useParams } from 'react-router-dom';
 import { useAppDispatch } from '../../hooks/use-app-dispatch/use-app-dispatch';
 import { sendReviewAction } from '../../store/reducers/reviews/api-actions';
-
-const RATING_TITLES = [
-  'Отлично',
-  'Хорошо',
-  'Нормально',
-  'Плохо',
-  'Ужасно'
-];
+import { RATING_TITLES } from './const';
 
 type ReviewFormProps = {
   isOpen: boolean;

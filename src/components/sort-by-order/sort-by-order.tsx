@@ -7,6 +7,7 @@ import { getCurrentSortOrder } from '../../store/reducers/sort/selectors';
 
 function SortByOrder(): JSX.Element {
   const currentSortOrder = useAppSelector(getCurrentSortOrder);
+
   const dispatch = useAppDispatch();
 
   const handleClick = (text: SortOrder) => {

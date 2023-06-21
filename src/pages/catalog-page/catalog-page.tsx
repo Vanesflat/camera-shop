@@ -17,7 +17,7 @@ import { Category, Level, SortOrder, sortOrderQueryValue, SortType, Type } from 
 import { getCurrentCategory, getCurrentLevels, getCurrentMaxPrice, getCurrentMinPrice, getCurrentTypes } from '../../store/reducers/filter/selectors';
 import { QueryParam } from '../../types/query-param';
 import { changeCategory, changeLevel, changeType, setMaxPrice, setMinPrice } from '../../store/reducers/filter/filter';
-import { ucFirst } from '../../utils/common';
+import { capitalizeFirstLetter } from '../../utils/common';
 import { changeSortOrder, changeSortType } from '../../store/reducers/sort/sort';
 
 function CatalogPage(): JSX.Element {
@@ -82,7 +82,7 @@ function CatalogPage(): JSX.Element {
 
   useEffect(() => {
     if (category) {
-      dispatch(changeCategory(ucFirst(category) as Category));
+      dispatch(changeCategory(capitalizeFirstLetter(category) as Category));
     }
   }, [category, dispatch]);
 
@@ -99,7 +99,7 @@ function CatalogPage(): JSX.Element {
   useEffect(() => {
     if (type.length) {
       type.forEach((item) => {
-        dispatch(changeType(ucFirst(item) as Type));
+        dispatch(changeType(capitalizeFirstLetter(item) as Type));
       });
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -108,7 +108,7 @@ function CatalogPage(): JSX.Element {
   useEffect(() => {
     if (level.length) {
       level.forEach((item) => {
-        dispatch(changeLevel(ucFirst(item) as Level));
+        dispatch(changeLevel(capitalizeFirstLetter(item) as Level));
       });
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
