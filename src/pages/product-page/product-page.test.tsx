@@ -12,6 +12,7 @@ import ProductPage from './product-page';
 const mockStore = configureMockStore([thunk]);
 
 const camera = makeFakeCamera();
+const cameras = [makeFakeCamera()];
 
 describe('Page: ProductPage', () => {
   it('should render correctly', () => {
@@ -19,6 +20,10 @@ describe('Page: ProductPage', () => {
     const store = mockStore({
       [NameSpace.Camera]: {
         camera: camera,
+        status: Status.Success
+      },
+      [NameSpace.Cameras]: {
+        cameras: cameras,
         status: Status.Success
       },
       [NameSpace.Reviews]: {

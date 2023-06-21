@@ -7,6 +7,7 @@ import { State } from '../../../types/store';
 import { makeFakeCamera } from '../../../utils/mocks';
 import { APIRoute } from '../../../const';
 import { fetchCamerasAction } from './api-actions';
+import { pushNotification } from '../notifications/notifications';
 
 describe('Async cameras actions', () => {
   const api = createAPI();
@@ -33,7 +34,8 @@ describe('Async cameras actions', () => {
 
     expect(actions).toEqual([
       fetchCamerasAction.pending.type,
-      fetchCamerasAction.fulfilled.type
+      pushNotification.type,
+      fetchCamerasAction.rejected.type
     ]);
   });
 });

@@ -5,7 +5,7 @@ import { Provider } from 'react-redux';
 import HistoryRouter from '../history-router/history-router';
 import ProductCard from './product-card';
 import { makeFakeCamera } from '../../utils/mocks';
-import { generatePath, Route, Routes } from 'react-router-dom';
+import { Route, Routes } from 'react-router-dom';
 import { AppRoute } from '../../const';
 import userEvent from '@testing-library/user-event';
 
@@ -36,7 +36,7 @@ describe('Component: ProductCard', () => {
         <HistoryRouter history={history}>
           <Routes>
             <Route
-              path={generatePath(AppRoute.Product, { id: String(camera.id) })}
+              path={`${AppRoute.Product}/${String(camera.id)}`}
               element={<h1>This is product page</h1>}
             />
             <Route

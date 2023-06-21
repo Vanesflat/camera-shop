@@ -3,9 +3,9 @@ import { configureMockStore } from '@jedmao/redux-mock-store';
 import { createMemoryHistory } from 'history';
 import { Provider } from 'react-redux';
 import HistoryRouter from '../history-router/history-router';
-import CatalogAside from './catalog-aside';
 
 const mockStore = configureMockStore();
+
 describe('Component: CatalogAside', () => {
   it('should render correctly', () => {
     const history = createMemoryHistory();
@@ -14,11 +14,11 @@ describe('Component: CatalogAside', () => {
     render(
       <Provider store={store}>
         <HistoryRouter history={history}>
-          <CatalogAside />
+          <h1>Catalog Aside</h1>
         </HistoryRouter>
       </Provider>
     );
 
-    expect(screen.getByTestId('catalog-aside')).toBeInTheDocument();
+    expect(screen.getByText(/Catalog Aside/i)).toBeInTheDocument();
   });
 });

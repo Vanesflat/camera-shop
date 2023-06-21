@@ -4,7 +4,7 @@ import thunk, { ThunkDispatch } from 'redux-thunk';
 import { Action } from 'redux';
 import { Provider } from 'react-redux';
 import { configureMockStore } from '@jedmao/redux-mock-store';
-import { AppRoute, NameSpace, Status } from '../../const';
+import { AppRoute, NameSpace, SortOrder, SortType, Status } from '../../const';
 import App from './app';
 import HistoryRouter from '../history-router/history-router';
 import { createAPI } from '../../services/api';
@@ -50,6 +50,17 @@ const store = mockStore({
     similarCameras: similarCameras,
     status: Status.Success
   },
+  [NameSpace.Sort]: {
+    sortOrder: SortOrder.Up,
+    sortType: SortType.SortPrice
+  },
+  [NameSpace.Filter]: {
+    category: null,
+    types: [],
+    levels: [],
+    minPrice: 0,
+    maxPrice: Infinity
+  }
 });
 
 const fakeApp = (
@@ -86,7 +97,7 @@ describe('Application Routing', () => {
   });
 
   it('should render "ProductPage" when user navigate to "/product/1"', () => {
-    history.push(generatePath(AppRoute.Product, { id: '1' }));
+    history.push(`${AppRoute.Product}/1`);
 
     render(fakeApp);
 

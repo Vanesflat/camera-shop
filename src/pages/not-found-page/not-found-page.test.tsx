@@ -6,13 +6,21 @@ import { configureMockStore } from '@jedmao/redux-mock-store';
 import { HelmetProvider } from 'react-helmet-async';
 import HistoryRouter from '../../components/history-router/history-router';
 import NotFoundPage from './not-found-page';
+import { NameSpace, Status } from '../../const';
+import { makeFakeCamera } from '../../utils/mocks';
 
 const mockStore = configureMockStore([thunk]);
+const cameras = [makeFakeCamera()];
 
 describe('Page: NotFoundPage', () => {
   it('should render correctly', () => {
     const history = createMemoryHistory();
-    const store = mockStore({});
+    const store = mockStore({
+      [NameSpace.Cameras]: {
+        cameras: cameras,
+        status: Status.Success
+      }
+    });
 
     render(
       <Provider store={store}>

@@ -3,7 +3,7 @@ import { createMemoryHistory } from 'history';
 import thunk from 'redux-thunk';
 import { Provider } from 'react-redux';
 import { configureMockStore } from '@jedmao/redux-mock-store';
-import { NameSpace, Status } from '../../const';
+import { NameSpace, SortOrder, SortType, Status } from '../../const';
 import { makeFakeCamera, makeFakePromo } from '../../utils/mocks';
 import { HelmetProvider } from 'react-helmet-async';
 import CatalogPage from './catalog-page';
@@ -25,6 +25,17 @@ describe('Page: CatalogPage', () => {
       [NameSpace.Promo]: {
         promo: promo,
         status: Status.Success
+      },
+      [NameSpace.Sort]: {
+        sortOrder: SortOrder.Up,
+        sortType: SortType.SortPrice
+      },
+      [NameSpace.Filter]: {
+        category: null,
+        types: [],
+        levels: [],
+        minPrice: 0,
+        maxPrice: Infinity
       }
     });
 

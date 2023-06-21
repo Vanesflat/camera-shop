@@ -4,9 +4,10 @@ import MockAdapter from 'axios-mock-adapter';
 import { configureMockStore } from '@jedmao/redux-mock-store';
 import { createAPI } from '../../../services/api';
 import { State } from '../../../types/store';
-import { makeFakeCamera } from '../../../utils/mocks';
+import { makeFakeCamera, makeFakeCameraWithoutRating } from '../../../utils/mocks';
 import { APIRoute } from '../../../const';
 import { fetchSimilarCamerasAction } from './api-actions';
+import { pushNotification } from '../notifications/notifications';
 
 describe('Async similar cameras actions', () => {
   const api = createAPI();
@@ -21,7 +22,7 @@ describe('Async similar cameras actions', () => {
 
   it('should dispatch Load_Similar_Cameras when GET /similar', async () => {
     const similarCameras = [makeFakeCamera()];
-    const camera = makeFakeCamera();
+    const camera = makeFakeCameraWithoutRating();
     mockAPI
       .onGet(`${APIRoute.Cameras}/${camera.id}${APIRoute.Similar}`)
       .reply(200, similarCameras);
@@ -34,7 +35,8 @@ describe('Async similar cameras actions', () => {
 
     expect(actions).toEqual([
       fetchSimilarCamerasAction.pending.type,
-      fetchSimilarCamerasAction.fulfilled.type
+      pushNotification.type,
+      fetchSimilarCamerasAction.rejected.type
     ]);
   });
 });

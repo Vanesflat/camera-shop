@@ -8,7 +8,6 @@ import ReviewSuccessModal from './review-success-modal';
 
 const mockStore = configureMockStore();
 
-
 describe('Component: ReviewSuccessModal', () => {
   it('should render correctly', () => {
     const history = createMemoryHistory();

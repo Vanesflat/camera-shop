@@ -7,6 +7,7 @@ import { State } from '../../../types/store';
 import { makeFakeCamera, makeFakeReview } from '../../../utils/mocks';
 import { APIRoute } from '../../../const';
 import { fetchReviewsAction, sendReviewAction } from './api-actions';
+import { pushNotification } from '../notifications/notifications';
 
 describe('Async reviews actions', () => {
   const api = createAPI();
@@ -54,6 +55,7 @@ describe('Async reviews actions', () => {
 
     expect(actions).toEqual([
       sendReviewAction.pending.type,
+      pushNotification.type,
       sendReviewAction.fulfilled.type
     ]);
   });

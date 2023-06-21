@@ -1,6 +1,6 @@
 import { commerce, datatype, image, lorem, name } from 'faker';
 import { Category, Level, Type } from '../const';
-import { Camera } from '../types/camera';
+import { Camera, CameraWithoutRating } from '../types/camera';
 import { Promo } from '../types/promo';
 import { Review } from '../types/review';
 
@@ -19,6 +19,22 @@ export const makeFakeCamera = (): Camera => ({
   previewImgWebp: image.imageUrl(),
   previewImgWebp2x: image.imageUrl(),
   rating: datatype.number()
+});
+
+export const makeFakeCameraWithoutRating = (): CameraWithoutRating => ({
+  id: datatype.number(),
+  name: commerce.productName(),
+  vendorCode: lorem.word(),
+  type: Type.Collectible,
+  category: Category.Camera,
+  description: commerce.productDescription(),
+  level: Level.Amateur,
+  price: datatype.number(),
+  reviewCount: datatype.number({ max: 10 }),
+  previewImg: image.imageUrl(),
+  previewImg2x: image.imageUrl(),
+  previewImgWebp: image.imageUrl(),
+  previewImgWebp2x: image.imageUrl(),
 });
 
 export const makeFakePromo = (): Promo => ({

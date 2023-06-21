@@ -4,12 +4,21 @@ import { createMemoryHistory } from 'history';
 import { Provider } from 'react-redux';
 import HistoryRouter from '../history-router/history-router';
 import Header from './header';
+import { NameSpace, Status } from '../../const';
+import { makeFakeCamera } from '../../utils/mocks';
 
 const mockStore = configureMockStore();
+const cameras = [makeFakeCamera()];
+
 describe('Component: Header', () => {
   it('should render correctly', () => {
     const history = createMemoryHistory();
-    const store = mockStore({});
+    const store = mockStore({
+      [NameSpace.Cameras]: {
+        cameras: cameras,
+        status: Status.Success
+      }
+    });
 
     render(
       <Provider store={store}>

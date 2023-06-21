@@ -6,7 +6,7 @@ import { Provider } from 'react-redux';
 import HistoryRouter from '../history-router/history-router';
 import Banner from './banner';
 import { makeFakeCamera, makeFakePromo } from '../../utils/mocks';
-import { generatePath, Route, Routes } from 'react-router-dom';
+import { Route, Routes } from 'react-router-dom';
 import userEvent from '@testing-library/user-event';
 
 const mockStore = configureMockStore();
@@ -47,7 +47,7 @@ describe('Component: Banner', () => {
         <HistoryRouter history={history}>
           <Routes>
             <Route
-              path={generatePath(AppRoute.Product, {id: String(promo.id)})}
+              path={`${AppRoute.Product}/${promo.id}`}
               element={<h1>This is product page</h1>}
             />
             <Route
