@@ -1,14 +1,18 @@
 import { Camera } from '../../types/camera';
 import BasketItem from '../basket-item/basket-item';
+import BasketListEmpty from '../basket-list-empty/basket-list-empty';
 
 type BasketListProps = {
-  cameras: Camera[];
+  cameras?: Camera[];
+  isBasketPage?: boolean;
 }
 
-function BasketList({ cameras }: BasketListProps): JSX.Element {
+function BasketList({ cameras = [], isBasketPage = true }: BasketListProps): JSX.Element {
   return (
     <div className="basket__list">
-      {cameras.map((camera) => <BasketItem camera={camera} key={camera.id} />)}
+      {!cameras.length ?
+        <BasketListEmpty /> :
+        cameras.map((camera) => <BasketItem camera={camera} isBasketPage={isBasketPage} key={camera.id} />)}
     </div>
   );
 }
