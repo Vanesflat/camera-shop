@@ -8,9 +8,6 @@ import { getBasketCameras } from '../../store/reducers/basket/selectors';
 function BasketPage(): JSX.Element {
   const basketCameras = useAppSelector(getBasketCameras);
 
-  // eslint-disable-next-line no-console
-  console.log(basketCameras);
-
   return (
     <Layout pageTitle="Корзина">
       <main data-testid="basket-page">

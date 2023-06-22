@@ -10,12 +10,21 @@ import Rating from '../rating/rating';
 type ProductCardProps = {
   style?: CSSProperties;
   camera: Camera;
+  setOpenedAddModal?: (arg: boolean) => void;
+  setCurrentCamera?: (camera: Camera) => void;
 }
 
-function ProductCard({ style, camera }: ProductCardProps): JSX.Element {
+function ProductCard({ style, camera, setOpenedAddModal, setCurrentCamera }: ProductCardProps): JSX.Element {
   const basketCameras = useAppSelector(getBasketCameras);
 
   const inBasket = basketCameras.find((basketCamera) => basketCamera.id === camera.id);
+
+  const handleClick = () => {
+    if (setOpenedAddModal && setCurrentCamera) {
+      setOpenedAddModal(true);
+      setCurrentCamera(camera);
+    }
+  };
 
   return (
     <div className="product-card is-active" style={style} data-testid="product-card">
@@ -44,7 +53,13 @@ function ProductCard({ style, camera }: ProductCardProps): JSX.Element {
               <use xlinkHref="#icon-basket"></use>
             </svg>В корзине
           </Link> :
-          <button className="btn btn--purple product-card__btn" type="button">Купить</button>}
+          <button
+            className="btn btn--purple product-card__btn"
+            type="button"
+            onClick={handleClick}
+          >
+            Купить
+          </button>}
         <Link className="btn btn--transparent" to={`${AppRoute.Product}/${String(camera.id)}?tab=${DEFAULT_PRODUCT_TAB}`}>Подробнее</Link>
       </div>
     </div>

@@ -4,9 +4,25 @@ import { Swiper, SwiperSlide } from 'swiper/react';
 import { Navigation } from 'swiper';
 import 'swiper/swiper-bundle.min.css';
 import ProductCard from '../product-card/product-card';
+import { Camera } from '../../types/camera';
+import { useState } from 'react';
+import AddCameraModal from '../add-camera-modal/add-camera-modal';
+import AddCameraSuccessModal from '../add-camera-success-modal/add-camera-success-modal';
 
 function SimilarProducts(): JSX.Element {
   const similarCameras = useAppSelector(getSimilarCameras);
+
+  const [openedAddModal, setOpenedAddModal] = useState(false);
+  const [openedAddSuccessModal, setOpenedAddSuccessModal] = useState(false);
+  const [currentCamera, setCurrentCamera] = useState<Camera>(similarCameras[0]);
+
+  const handleAddModalCloseClick = () => {
+    setOpenedAddModal(false);
+  };
+
+  const handleAddSuccessModalCloseClick = () => {
+    setOpenedAddSuccessModal(false);
+  };
 
   return (
     <div className="page-content__section">
@@ -35,6 +51,8 @@ function SimilarProducts(): JSX.Element {
                       margin: 0
                     }}
                     camera={similarCamera}
+                    setOpenedAddModal={setOpenedAddModal}
+                    setCurrentCamera={setCurrentCamera}
                   />
                 </SwiperSlide>
               ))}
@@ -62,6 +80,13 @@ function SimilarProducts(): JSX.Element {
           </div>
         </div>
       </section>
+      <AddCameraModal
+        isOpen={openedAddModal}
+        camera={currentCamera}
+        onCloseCLick={handleAddModalCloseClick}
+        setOpenedAddSuccessModal={setOpenedAddSuccessModal}
+      />
+      <AddCameraSuccessModal isOpen={openedAddSuccessModal} onCloseCLick={handleAddSuccessModalCloseClick} />
     </div>
   );
 }
