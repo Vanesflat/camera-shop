@@ -4,10 +4,12 @@ import { Camera } from '../../../types/camera';
 
 export type BasketSlice = {
   cameras: Camera[];
+  totalCount: number;
 };
 
 const initialState: BasketSlice = {
   cameras: [],
+  totalCount: 0
 };
 
 export const basketSlice = createSlice({
@@ -19,8 +21,10 @@ export const basketSlice = createSlice({
 
       if (findedCamera && findedCamera.count) {
         findedCamera.count++;
+        state.totalCount++;
       } else {
         state.cameras.push({ ...action.payload, count: 1 });
+        state.totalCount++;
       }
     },
   }
