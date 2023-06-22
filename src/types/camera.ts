@@ -15,6 +15,7 @@ export type Camera = {
   previewImgWebp: string;
   previewImgWebp2x: string;
   rating: number;
+  count?: number;
 };
 
 export type CameraWithoutRating = Omit<Camera, 'rating'>

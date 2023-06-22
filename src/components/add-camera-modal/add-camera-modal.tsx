@@ -1,3 +1,5 @@
+import { useAppDispatch } from '../../hooks/use-app-dispatch/use-app-dispatch';
+import { addCamera } from '../../store/reducers/basket/basket';
 import { Camera } from '../../types/camera';
 import BasketItem from '../basket-item/basket-item';
 import Modal from '../modal/modal';
@@ -10,7 +12,11 @@ type AddCameraModalProps = {
 };
 
 function AddCameraModal({ camera, isOpen, onCloseCLick, setOpenedAddSuccessModal }: AddCameraModalProps): JSX.Element {
+  const dispatch = useAppDispatch();
+
   const handleClick = () => {
+    dispatch(addCamera(camera));
+
     setOpenedAddSuccessModal(true);
     onCloseCLick();
   };

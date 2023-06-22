@@ -1,6 +1,6 @@
 import cn from 'classnames';
 import { Camera } from '../../types/camera';
-import { formatPrice } from '../../utils/common';
+import { formatPrice, getTotalProductPrice } from '../../utils/common';
 
 type BasketItemProps = {
   camera: Camera;
@@ -29,7 +29,7 @@ function BasketItem({ camera, isBasketPage = false }: BasketItemProps): JSX.Elem
             <span className="basket-item__article">Артикул: </span>
             <span className="basket-item__number">{camera.vendorCode}</span>
           </li>
-          <li className="basket-item__list-item">{camera.type} {camera.category.toLowerCase()}</li>
+          <li className="basket-item__list-item">{camera.type} камера</li>
           <li className="basket-item__list-item">{camera.level} уровень</li>
         </ul>
         {!isBasketPage &&
@@ -49,14 +49,14 @@ function BasketItem({ camera, isBasketPage = false }: BasketItemProps): JSX.Elem
               </svg>
             </button>
             <label className="visually-hidden" htmlFor="counter1"></label>
-            <input type="number" id="counter1" defaultValue="2" min="1" max="99" aria-label="количество товара" />
+            <input type="number" id="counter1" defaultValue={camera.count?.toString()} min="1" max="99" aria-label="количество товара" />
             <button className="btn-icon btn-icon--next" aria-label="увеличить количество товара">
               <svg width="7" height="12" aria-hidden="true">
                 <use xlinkHref="#icon-arrow"></use>
               </svg>
             </button>
           </div>
-          <div className="basket-item__total-price"><span className="visually-hidden">Общая цена:</span>37 940 ₽</div>
+          <div className="basket-item__total-price"><span className="visually-hidden">Общая цена:</span>{getTotalProductPrice(camera.price, camera.count)} ₽</div>
           <button className="cross-btn" type="button" aria-label="Удалить товар">
             <svg width="10" height="10" aria-hidden="true">
               <use xlinkHref="#icon-close"></use>

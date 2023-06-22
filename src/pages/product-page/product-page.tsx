@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import Breadcrumbs from '../../components/breadcrumbs/breadcrumbs';
 import Layout from '../../components/layout/layout';
@@ -17,6 +17,8 @@ import { fetchSimilarCamerasAction } from '../../store/reducers/similar-products
 import { getSimilarCamerasStatus } from '../../store/reducers/similar-products/selectors';
 import Rating from '../../components/rating/rating';
 import { getAverageRate } from '../../utils/review';
+import AddCameraModal from '../../components/add-camera-modal/add-camera-modal';
+import AddCameraSuccessModal from '../../components/add-camera-success-modal/add-camera-success-modal';
 
 function ProductPage(): JSX.Element {
   const camera = useAppSelector(getCamera);
@@ -24,6 +26,9 @@ function ProductPage(): JSX.Element {
   const reviews = useAppSelector(getReviews);
   const reviewsStatus = useAppSelector(getReviewsStatus);
   const similarCamerasStatus = useAppSelector(getSimilarCamerasStatus);
+
+  const [openedAddModal, setOpenedAddModal] = useState(false);
+  const [openedAddSuccessModal, setOpenedAddSuccessModal] = useState(false);
 
   const rating = getAverageRate(reviews);
 
@@ -42,6 +47,18 @@ function ProductPage(): JSX.Element {
       top: 0,
       behavior: 'smooth'
     });
+  };
+
+  const handleAddBasketClick = () => {
+    setOpenedAddModal(true);
+  };
+
+  const handleAddModalCloseClick = () => {
+    setOpenedAddModal(false);
+  };
+
+  const handleAddSuccessModalCloseClick = () => {
+    setOpenedAddSuccessModal(false);
   };
 
   if (!camera || cameraStatus.isLoading || reviewsStatus.isLoading || similarCamerasStatus.isLoading) {
@@ -66,7 +83,11 @@ function ProductPage(): JSX.Element {
                   <h1 className="title title--h3">{camera.name}</h1>
                   <Rating rating={rating} reviewCount={camera.reviewCount} />
                   <p className="product__price"><span className="visually-hidden">Цена:</span>{formatPrice(camera.price)} ₽</p>
-                  <button className="btn btn--purple" type="button">
+                  <button
+                    className="btn btn--purple"
+                    type="button"
+                    onClick={handleAddBasketClick}
+                  >
                     <svg width="24" height="16" aria-hidden="true">
                       <use xlinkHref="#icon-add-basket"></use>
                     </svg>
@@ -86,6 +107,13 @@ function ProductPage(): JSX.Element {
           <use xlinkHref="#icon-arrow2"></use>
         </svg>
       </button>
+      <AddCameraModal
+        isOpen={openedAddModal}
+        camera={camera}
+        onCloseCLick={handleAddModalCloseClick}
+        setOpenedAddSuccessModal={setOpenedAddSuccessModal}
+      />
+      <AddCameraSuccessModal isOpen={openedAddSuccessModal} onCloseCLick={handleAddSuccessModalCloseClick} />
     </Layout>
   );
 }

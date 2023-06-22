@@ -3,11 +3,11 @@ import BasketItem from '../basket-item/basket-item';
 import BasketListEmpty from '../basket-list-empty/basket-list-empty';
 
 type BasketListProps = {
-  cameras?: Camera[];
+  cameras: Camera[];
   isBasketPage?: boolean;
 }
 
-function BasketList({ cameras = [], isBasketPage = true }: BasketListProps): JSX.Element {
+function BasketList({ cameras, isBasketPage = true }: BasketListProps): JSX.Element {
   return (
     <div className="basket__list">
       {!cameras.length ?

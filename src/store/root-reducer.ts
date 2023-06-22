@@ -8,11 +8,13 @@ import { reviewsSlice } from './reducers/reviews/reviews';
 import { similarCamerasSlice } from './reducers/similar-products/similar-products';
 import { filterSlice } from './reducers/filter/filter';
 import { notificationsSlice } from './reducers/notifications/notifications';
+import { basketSlice } from './reducers/basket/basket';
 
 export const rootReducer = combineReducers({
   [NameSpace.Cameras]: camerasSlice.reducer,
   [NameSpace.Camera]: cameraSlice.reducer,
   [NameSpace.Promo]: promoSlice.reducer,
+  [NameSpace.Basket]: basketSlice.reducer,
   [NameSpace.Reviews]: reviewsSlice.reducer,
   [NameSpace.SimilarCameras]: similarCamerasSlice.reducer,
   [NameSpace.Sort]: sortSlice.reducer,
