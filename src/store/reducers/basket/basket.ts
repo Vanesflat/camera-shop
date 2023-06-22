@@ -27,9 +27,14 @@ export const basketSlice = createSlice({
         state.totalCount++;
       }
     },
+    removeCamera: (state, action: PayloadAction<Camera>) => {
+      state.cameras = state.cameras.filter((camera) => camera.id !== action.payload.id);
+      state.totalCount = state.totalCount - (action.payload.count ?? 0);
+    },
   }
 });
 
 export const {
-  addCamera
+  addCamera,
+  removeCamera
 } = basketSlice.actions;

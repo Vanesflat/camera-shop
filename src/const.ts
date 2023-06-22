@@ -61,6 +61,12 @@ export enum SortOrder {
   Down = 'По убыванию'
 }
 
+export enum BasketItemType {
+  Standart = 'standart',
+  Add = 'add',
+  Remove = 'remove'
+}
+
 export const sortOrderQueryValue = {
   [SortOrder.Up]: 'asc',
   [SortOrder.Down]: 'desc'

@@ -1,3 +1,4 @@
+import { BasketItemType } from '../../const';
 import { useAppDispatch } from '../../hooks/use-app-dispatch/use-app-dispatch';
 import { addCamera } from '../../store/reducers/basket/basket';
 import { Camera } from '../../types/camera';
@@ -24,7 +25,7 @@ function AddCameraModal({ camera, isOpen, onCloseCLick, setOpenedAddSuccessModal
   return (
     <Modal isOpen={isOpen} onCloseClick={onCloseCLick}>
       <p className="title title--h4">Добавить товар в корзину</p>
-      <BasketItem camera={camera} />
+      <BasketItem camera={camera} type={BasketItemType.Add} />
       <div className="modal__buttons">
         <button
           className="btn btn--purple modal__btn modal__btn--fit-width"
