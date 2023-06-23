@@ -19,6 +19,14 @@ describe('Page: NotFoundPage', () => {
       [NameSpace.Cameras]: {
         cameras: cameras,
         status: Status.Success
+      },
+      [NameSpace.Basket]: {
+        basketCameras: [],
+        coupon: null,
+        discount: 0,
+        discountStatus: Status.Success,
+        orderStatus: Status.Idle,
+        totalCount: 0
       }
     });
 

@@ -4,7 +4,7 @@ import { Camera } from '../../../types/camera';
 import { fetchDiscount, postOrder } from './api-actions';
 
 export type BasketSlice = {
-  cameras: Camera[];
+  basketCameras: Camera[];
   totalCount: number;
   discount: number;
   discountStatus: Status;
@@ -13,7 +13,7 @@ export type BasketSlice = {
 };
 
 const initialState: BasketSlice = {
-  cameras: [],
+  basketCameras: [],
   totalCount: 0,
   discount: 0,
   discountStatus: Status.Idle,
@@ -26,18 +26,18 @@ export const basketSlice = createSlice({
   initialState,
   reducers: {
     addCamera: (state, action: PayloadAction<Camera>) => {
-      const findedCamera = state.cameras.find((camera) => camera.id === action.payload.id);
+      const findedCamera = state.basketCameras.find((camera) => camera.id === action.payload.id);
 
       if (findedCamera && findedCamera.count) {
         findedCamera.count++;
         state.totalCount++;
       } else {
-        state.cameras.push({ ...action.payload, count: 1 });
+        state.basketCameras.push({ ...action.payload, count: 1 });
         state.totalCount++;
       }
     },
     decrementCameraCount: (state, action: PayloadAction<Camera>) => {
-      const findedCamera = state.cameras.find((camera) => camera.id === action.payload.id);
+      const findedCamera = state.basketCameras.find((camera) => camera.id === action.payload.id);
 
       if (findedCamera && findedCamera.count) {
         findedCamera.count--;
@@ -45,15 +45,15 @@ export const basketSlice = createSlice({
       }
     },
     removeCamera: (state, action: PayloadAction<Camera>) => {
-      state.cameras = state.cameras.filter((camera) => camera.id !== action.payload.id);
-      state.totalCount = state.cameras.reduce((acc, camera) => acc + (camera.count as number), 0);
+      state.basketCameras = state.basketCameras.filter((camera) => camera.id !== action.payload.id);
+      state.totalCount = state.basketCameras.reduce((acc, camera) => acc + (camera.count as number), 0);
     },
     setCameraCount: (state, action: PayloadAction<{ id: number; count: number }>) => {
-      const findedCamera = state.cameras.find((camera) => camera.id === action.payload.id);
+      const findedCamera = state.basketCameras.find((camera) => camera.id === action.payload.id);
 
       if (findedCamera) {
         findedCamera.count = action.payload.count;
-        state.totalCount = state.cameras.reduce((acc, camera) => acc + (camera.count as number), 0);
+        state.totalCount = state.basketCameras.reduce((acc, camera) => acc + (camera.count as number), 0);
       }
     },
     setCoupon: (state, action: PayloadAction<Coupon>) => {
@@ -79,7 +79,7 @@ export const basketSlice = createSlice({
         state.orderStatus = Status.Loading;
       })
       .addCase(postOrder.fulfilled, (state) => {
-        state.cameras = [];
+        state.basketCameras = [];
         state.totalCount = 0;
         state.discount = 0;
         state.coupon = null;

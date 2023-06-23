@@ -60,6 +60,14 @@ const store = mockStore({
     levels: [],
     minPrice: 0,
     maxPrice: Infinity
+  },
+  [NameSpace.Basket]: {
+    basketCameras: [],
+    coupon: null,
+    discount: 0,
+    discountStatus: Status.Success,
+    orderStatus: Status.Idle,
+    totalCount: 0
   }
 });
 

@@ -31,8 +31,16 @@ describe('Page: ProductPage', () => {
         status: Status.Success
       },
       [NameSpace.SimilarCameras]: {
-        similarCameras: [],
+        similarCameras: cameras,
         status: Status.Success
+      },
+      [NameSpace.Basket]: {
+        basketCameras: cameras,
+        coupon: null,
+        discount: 0,
+        discountStatus: Status.Success,
+        orderStatus: Status.Idle,
+        totalCount: 0
       }
     });
 

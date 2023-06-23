@@ -6,13 +6,22 @@ import HistoryRouter from '../history-router/history-router';
 import ProductCard from './product-card';
 import { makeFakeCamera } from '../../utils/mocks';
 import { Route, Routes } from 'react-router-dom';
-import { AppRoute } from '../../const';
+import { AppRoute, NameSpace, Status } from '../../const';
 import userEvent from '@testing-library/user-event';
 
 const mockStore = configureMockStore();
 const camera = makeFakeCamera();
 const history = createMemoryHistory();
-const store = mockStore({});
+const store = mockStore({
+  [NameSpace.Basket]: {
+    basketCameras: [],
+    coupon: null,
+    discount: 0,
+    discountStatus: Status.Success,
+    orderStatus: Status.Idle,
+    totalCount: 0
+  }
+});
 
 describe('Component: ProductCard', () => {
   it('should render correctly', () => {

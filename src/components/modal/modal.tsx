@@ -30,7 +30,7 @@ function Modal({ isOpen, onCloseClick, children }: ModalProps): JSX.Element {
   }, [isOpen, handleEscapeKeydown]);
 
   return (
-    <FocusTrap open>
+    <FocusTrap open={isOpen}>
       <div
         className={cn('modal', isOpen && 'is-active')}
         ref={modalRef}
