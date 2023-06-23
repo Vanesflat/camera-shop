@@ -1,15 +1,20 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { NameSpace } from '../../../const';
+import { NameSpace, Status } from '../../../const';
 import { Camera } from '../../../types/camera';
+import { fetchDiscount } from './api-actions';
 
 export type BasketSlice = {
   cameras: Camera[];
   totalCount: number;
+  discount: number;
+  status: Status;
 };
 
 const initialState: BasketSlice = {
   cameras: [],
-  totalCount: 0
+  totalCount: 0,
+  discount: 0,
+  status: Status.Idle
 };
 
 export const basketSlice = createSlice({
@@ -47,7 +52,20 @@ export const basketSlice = createSlice({
         state.totalCount = state.cameras.reduce((acc, camera) => acc + (camera.count as number), 0);
       }
     }
-  }
+  },
+  extraReducers(builder) {
+    builder
+      .addCase(fetchDiscount.pending, (state) => {
+        state.status = Status.Loading;
+      })
+      .addCase(fetchDiscount.fulfilled, (state, action) => {
+        state.discount = action.payload;
+        state.status = Status.Success;
+      })
+      .addCase(fetchDiscount.rejected, (state) => {
+        state.status = Status.Error;
+      });
+  },
 });
 
 export const {

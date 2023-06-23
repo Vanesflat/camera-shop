@@ -67,6 +67,12 @@ export enum BasketItemType {
   Remove = 'remove'
 }
 
+export enum Coupon {
+  First = 'camera-333',
+  Second = 'camera-444',
+  Third = 'camera-555'
+}
+
 export const sortOrderQueryValue = {
   [SortOrder.Up]: 'asc',
   [SortOrder.Down]: 'desc'

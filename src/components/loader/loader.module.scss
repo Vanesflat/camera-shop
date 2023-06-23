@@ -36,6 +36,19 @@
   }
 }
 
+.small {
+  margin: 0 auto;
+  width: 20px;
+  height: 20px;
+
+  div {
+    width: 12px;
+    height: 12px;
+    border: 2px solid #ffffff;
+    border-color: #ffffff transparent transparent transparent;
+  }
+}
+
 @keyframes lds-ring {
   0% {
     transform: rotate(0deg);
