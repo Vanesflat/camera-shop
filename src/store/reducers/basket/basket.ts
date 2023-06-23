@@ -1,20 +1,24 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { NameSpace, Status } from '../../../const';
+import { Coupon, NameSpace, Status } from '../../../const';
 import { Camera } from '../../../types/camera';
-import { fetchDiscount } from './api-actions';
+import { fetchDiscount, postOrder } from './api-actions';
 
 export type BasketSlice = {
   cameras: Camera[];
   totalCount: number;
   discount: number;
-  status: Status;
+  discountStatus: Status;
+  coupon: Coupon | null;
+  orderStatus: Status;
 };
 
 const initialState: BasketSlice = {
   cameras: [],
   totalCount: 0,
   discount: 0,
-  status: Status.Idle
+  discountStatus: Status.Idle,
+  coupon: null,
+  orderStatus: Status.Idle
 };
 
 export const basketSlice = createSlice({
@@ -51,19 +55,38 @@ export const basketSlice = createSlice({
         findedCamera.count = action.payload.count;
         state.totalCount = state.cameras.reduce((acc, camera) => acc + (camera.count as number), 0);
       }
+    },
+    setCoupon: (state, action: PayloadAction<Coupon>) => {
+      state.coupon = action.payload;
+    },
+    resetOrderStatus: (state) => {
+      state.orderStatus = Status.Idle;
     }
   },
   extraReducers(builder) {
     builder
       .addCase(fetchDiscount.pending, (state) => {
-        state.status = Status.Loading;
+        state.discountStatus = Status.Loading;
       })
       .addCase(fetchDiscount.fulfilled, (state, action) => {
         state.discount = action.payload;
-        state.status = Status.Success;
+        state.discountStatus = Status.Success;
       })
       .addCase(fetchDiscount.rejected, (state) => {
-        state.status = Status.Error;
+        state.discountStatus = Status.Error;
+      })
+      .addCase(postOrder.pending, (state) => {
+        state.orderStatus = Status.Loading;
+      })
+      .addCase(postOrder.fulfilled, (state) => {
+        state.cameras = [];
+        state.totalCount = 0;
+        state.discount = 0;
+        state.coupon = null;
+        state.orderStatus = Status.Success;
+      })
+      .addCase(postOrder.rejected, (state) => {
+        state.orderStatus = Status.Error;
       });
   },
 });
@@ -72,5 +95,7 @@ export const {
   addCamera,
   decrementCameraCount,
   removeCamera,
-  setCameraCount
+  setCameraCount,
+  setCoupon,
+  resetOrderStatus
 } = basketSlice.actions;

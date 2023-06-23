@@ -4,6 +4,7 @@ import { Coupon } from '../../const';
 import { useAppDispatch } from '../../hooks/use-app-dispatch/use-app-dispatch';
 import { useAppSelector } from '../../hooks/use-app-selector/use-app-selector';
 import { fetchDiscount } from '../../store/reducers/basket/api-actions';
+import { setCoupon } from '../../store/reducers/basket/basket';
 import { getDiscountStatus } from '../../store/reducers/basket/selectors';
 import Loader from '../loader/loader';
 
@@ -45,7 +46,14 @@ function BasketPromo(): JSX.Element {
               <input
                 {...register('promo', {
                   validate: {
-                    positive: (value) => Object.values(Coupon).includes(value)
+                    positive: (value) => {
+                      if (Object.values(Coupon).includes(value)) {
+                        dispatch(setCoupon(value));
+                        return true;
+                      } else {
+                        return false;
+                      }
+                    }
                   }
                 })}
                 type="text"

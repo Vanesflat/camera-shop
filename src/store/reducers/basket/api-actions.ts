@@ -17,3 +17,17 @@ export const fetchDiscount = createAsyncThunk<number, Coupon, ThunkOptions>(
     }
   }
 );
+
+export const postOrder = createAsyncThunk<number, { camerasIds: number[]; coupon: Coupon | null }, ThunkOptions>(
+  'data/postOrder',
+  async ({ camerasIds, coupon }, { dispatch, extra: api }) => {
+    try {
+      const { data } = await api.post<number>(APIRoute.Order, { camerasIds, coupon });
+
+      return data;
+    } catch (err) {
+      dispatch(pushNotification({ type: 'error', message: 'Ошибка оформления заказа' }));
+      throw err;
+    }
+  }
+);

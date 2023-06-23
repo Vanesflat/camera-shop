@@ -1,4 +1,5 @@
 import BasketList from '../../components/basket-list/basket-list';
+import BasketOrderSuccessModal from '../../components/basket-order-success-modal/basket-order-success-modal';
 import BasketSummary from '../../components/basket-summary/basket-summary';
 import Breadcrumbs from '../../components/breadcrumbs/breadcrumbs';
 import Layout from '../../components/layout/layout';
@@ -17,6 +18,7 @@ function BasketPage(): JSX.Element {
             </div>
           </section>
         </div>
+        <BasketOrderSuccessModal />
       </main>
     </Layout>
   );
