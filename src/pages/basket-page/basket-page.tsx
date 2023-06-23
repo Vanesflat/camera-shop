@@ -3,8 +3,17 @@ import BasketOrderSuccessModal from '../../components/basket-order-success-modal
 import BasketSummary from '../../components/basket-summary/basket-summary';
 import Breadcrumbs from '../../components/breadcrumbs/breadcrumbs';
 import Layout from '../../components/layout/layout';
+import { useAppSelector } from '../../hooks/use-app-selector/use-app-selector';
+import { getOrderStatus } from '../../store/reducers/basket/selectors';
+import ErrorPage from '../error-page/error-page';
 
 function BasketPage(): JSX.Element {
+  const orderStatus = useAppSelector(getOrderStatus);
+
+  if (orderStatus.isError) {
+    return <ErrorPage />;
+  }
+
   return (
     <Layout pageTitle="Корзина">
       <main data-testid="basket-page">

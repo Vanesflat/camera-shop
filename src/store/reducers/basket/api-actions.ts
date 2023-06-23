@@ -25,9 +25,8 @@ export const postOrder = createAsyncThunk<number, { camerasIds: number[]; coupon
       const { data } = await api.post<number>(APIRoute.Order, { camerasIds, coupon });
 
       return data;
-    } catch (err) {
-      dispatch(pushNotification({ type: 'error', message: 'Ошибка оформления заказа' }));
-      throw err;
+    } catch {
+      throw new Error();
     }
   }
 );
