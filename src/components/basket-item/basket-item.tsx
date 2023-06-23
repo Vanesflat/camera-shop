@@ -1,21 +1,20 @@
 import cn from 'classnames';
-import React, { useState } from 'react';
+import React from 'react';
 import { BasketItemType } from '../../const';
 import { useAppDispatch } from '../../hooks/use-app-dispatch/use-app-dispatch';
 import { addCamera, decrementCameraCount, setCameraCount } from '../../store/reducers/basket/basket';
 import { Camera } from '../../types/camera';
 import { formatPrice, getTotalProductPrice } from '../../utils/common';
-import BasketRemoveCameraModal from '../basket-remove-camera-modal/basket-remove-camera-modal';
 import { MAX_PRODUCT_COUNT, MIN_PRODUCT_COUNT } from './const';
 
 type BasketItemProps = {
   camera: Camera;
   type: BasketItemType;
+  setOpenedRemoveModal?: (arg: boolean) => void;
+  setCurrentCamera?: (camera: Camera) => void;
 };
 
-function BasketItem({ camera, type }: BasketItemProps): JSX.Element {
-  const [openedRemoveModal, setOpenedRemoveModal] = useState(false);
-
+function BasketItem({ camera, type, setOpenedRemoveModal, setCurrentCamera }: BasketItemProps): JSX.Element {
   const dispatch = useAppDispatch();
 
   const handleChange = (evt: React.ChangeEvent<HTMLInputElement>) => {
@@ -39,11 +38,10 @@ function BasketItem({ camera, type }: BasketItemProps): JSX.Element {
   };
 
   const handleDeleteClick = () => {
-    setOpenedRemoveModal(true);
-  };
-
-  const handleRemoveModalCloseClick = () => {
-    setOpenedRemoveModal(false);
+    if (setOpenedRemoveModal && setCurrentCamera) {
+      setOpenedRemoveModal(true);
+      setCurrentCamera(camera);
+    }
   };
 
   const handleIncrementClick = () => {
@@ -134,11 +132,6 @@ function BasketItem({ camera, type }: BasketItemProps): JSX.Element {
               <use xlinkHref="#icon-close"></use>
             </svg>
           </button>
-          <BasketRemoveCameraModal
-            camera={camera}
-            isOpen={openedRemoveModal}
-            onCloseCLick={handleRemoveModalCloseClick}
-          />
         </>}
     </li>
   );
