@@ -5,7 +5,7 @@ import { useAppDispatch } from '../../hooks/use-app-dispatch/use-app-dispatch';
 import { useAppSelector } from '../../hooks/use-app-selector/use-app-selector';
 import { fetchDiscount } from '../../store/reducers/basket/api-actions';
 import { setCoupon } from '../../store/reducers/basket/basket';
-import { getDiscountStatus } from '../../store/reducers/basket/selectors';
+import { getCoupon, getDiscountStatus } from '../../store/reducers/basket/selectors';
 import Loader from '../loader/loader';
 
 type PromoFormField = {
@@ -23,6 +23,7 @@ function BasketPromo(): JSX.Element {
   } = useForm<PromoFormField>({
     mode: 'onSubmit'
   });
+  const coupon = useAppSelector(getCoupon);
   const discountStatus = useAppSelector(getDiscountStatus);
 
   const dispatch = useAppDispatch();
@@ -58,6 +59,7 @@ function BasketPromo(): JSX.Element {
                 })}
                 type="text"
                 name="promo"
+                defaultValue={coupon || ''}
                 placeholder="Введите промокод"
               />
             </label>
