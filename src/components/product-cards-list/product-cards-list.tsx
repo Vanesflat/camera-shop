@@ -23,7 +23,13 @@ function ProductCardsList({ cameras }: ProductCardsListProps): JSX.Element {
 
   return (
     <div className="cards catalog__cards" data-testid="product-cards-list">
-      {cameras.map((camera) => <ProductCard camera={camera} key={camera.id} setOpenedAddModal={setOpenedAddModal} setCurrentCamera={setCurrentCamera} />)}
+      {cameras.map((camera) => (
+        <ProductCard
+          camera={camera}
+          key={camera.id}
+          setOpenedAddModal={setOpenedAddModal}
+          setCurrentCamera={setCurrentCamera}
+        />))}
       <AddCameraModal
         isOpen={openedAddModal}
         camera={currentCamera}

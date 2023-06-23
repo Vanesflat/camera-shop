@@ -1,5 +1,5 @@
 import cn from 'classnames';
-import React from 'react';
+import React, { memo } from 'react';
 import { BasketItemType } from '../../const';
 import { useAppDispatch } from '../../hooks/use-app-dispatch/use-app-dispatch';
 import { addCamera, decrementCameraCount, setCameraCount } from '../../store/reducers/basket/basket';
@@ -137,4 +137,4 @@ function BasketItem({ camera, type, setOpenedRemoveModal, setCurrentCamera }: Ba
   );
 }
 
-export default BasketItem;
+export default memo(BasketItem);
