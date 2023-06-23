@@ -27,14 +27,32 @@ export const basketSlice = createSlice({
         state.totalCount++;
       }
     },
+    decrementCameraCount: (state, action: PayloadAction<Camera>) => {
+      const findedCamera = state.cameras.find((camera) => camera.id === action.payload.id);
+
+      if (findedCamera && findedCamera.count) {
+        findedCamera.count--;
+        state.totalCount--;
+      }
+    },
     removeCamera: (state, action: PayloadAction<Camera>) => {
       state.cameras = state.cameras.filter((camera) => camera.id !== action.payload.id);
-      state.totalCount = state.totalCount - (action.payload.count ?? 0);
+      state.totalCount = state.cameras.reduce((acc, camera) => acc + (camera.count as number), 0);
     },
+    setCameraCount: (state, action: PayloadAction<{ id: number; count: number }>) => {
+      const findedCamera = state.cameras.find((camera) => camera.id === action.payload.id);
+
+      if (findedCamera) {
+        findedCamera.count = action.payload.count;
+        state.totalCount = state.cameras.reduce((acc, camera) => acc + (camera.count as number), 0);
+      }
+    }
   }
 });
 
 export const {
   addCamera,
-  removeCamera
+  decrementCameraCount,
+  removeCamera,
+  setCameraCount
 } = basketSlice.actions;
