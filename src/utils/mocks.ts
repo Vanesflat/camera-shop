@@ -1,5 +1,5 @@
 import { commerce, datatype, image, lorem, name } from 'faker';
-import { Category, Level, Type } from '../const';
+import { Category, Coupon, Level, Type } from '../const';
 import { Camera, CameraWithoutRating } from '../types/camera';
 import { Notification } from '../types/notification';
 import { Promo } from '../types/promo';
@@ -64,3 +64,5 @@ export const makeFakeNotification = (): Notification => ({
   message: lorem.text(),
   duration: datatype.number({ min: 1000, max: 4000 })
 });
+
+export const makeFakeCoupon = (): Coupon => lorem.word() as Coupon;
