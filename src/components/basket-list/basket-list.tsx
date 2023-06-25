@@ -19,7 +19,7 @@ function BasketList(): JSX.Element {
 
   return (
     <>
-      <ul className="basket__list">
+      <ul className="basket__list" data-testid="basket-list">
         {!basketCameras.length
           ? <BasketListEmpty />
           : basketCameras.map((camera) => (
