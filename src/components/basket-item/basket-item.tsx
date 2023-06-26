@@ -26,7 +26,7 @@ function BasketItem({ camera, type, setOpenedRemoveModal, setCurrentCamera }: Ba
       return;
     }
 
-    dispatch(setCameraCount({ id: camera.id, count: +value }));
+    dispatch(setCameraCount({ id: camera.id, count: Math.round(+value) }));
   };
 
   const handleBlur = (evt: React.ChangeEvent<HTMLInputElement>) => {
